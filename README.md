@@ -25,7 +25,7 @@ Pour publier quand même en écrasant WordPress : Actions → **Publier sur Word
 
 Insérés dans les pages par `python3 scripts/popup.py` (à relancer après toute modification, puis commiter).
 
-- **popup-preinscription** — annonce plein écran des pré-inscriptions, sur l'accueil uniquement. Apparaît après 5 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, ne revient pas pendant 7 jours après fermeture (plus du tout après un clic sur « Je me pré-inscris »).
+- **popup-preinscription** — fenêtre centrée annonçant les pré-inscriptions, sur l'accueil uniquement. Apparaît après 5 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, ne revient pas pendant 7 jours après fermeture (plus du tout après un clic sur « Je me pré-inscris »).
 - **brevo-masque** — masque la pop-up newsletter Brevo sur toutes les pages publiées. Solution provisoire : Brevo continue de la charger, et elle reste visible sur les articles du blog. La vraie correction est de la désactiver dans Brevo, puis `python3 scripts/popup.py --remove brevo-masque`.
 
 Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts/popup.py`.
