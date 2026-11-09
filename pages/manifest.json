@@ -13,7 +13,7 @@
     "statut": "publish",
     "template": "elementor_canvas",
     "url": "https://www.academiedelaveau.com/academie-delaveau/",
-    "modified_gmt": "2026-11-09T10:39:20"
+    "modified_gmt": "2026-11-09T10:42:16"
   },
   "academie-espoir": {
     "id": 81753,
@@ -29,7 +29,7 @@
     "statut": "publish",
     "template": "elementor_canvas",
     "url": "https://www.academiedelaveau.com/",
-    "modified_gmt": "2026-11-09T10:39:44"
+    "modified_gmt": "2026-11-09T10:42:29"
   },
   "contactez-nous": {
     "id": 81761,
@@ -37,7 +37,7 @@
     "statut": "publish",
     "template": "elementor_canvas",
     "url": "https://www.academiedelaveau.com/contactez-nous/",
-    "modified_gmt": "2026-11-09T10:39:56"
+    "modified_gmt": "2026-11-09T10:42:41"
   },
   "inscription-aux-stages": {
     "id": 82275,
@@ -109,6 +109,6 @@
     "statut": "publish",
     "template": "elementor_canvas",
     "url": "https://www.academiedelaveau.com/pre-inscription-2026-2027/",
-    "modified_gmt": "2026-11-09T10:41:32"
+    "modified_gmt": "2026-11-09T10:42:53"
   }
 }
