@@ -1,0 +1,40 @@
+name: Modifier un formulaire Contact Form 7
+
+on:
+  workflow_dispatch:
+    inputs:
+      titre:
+        description: "Titre exact du formulaire"
+        required: true
+        default: "Inscriptions stage 2026"
+      ancien:
+        description: "Texte à remplacer"
+        required: true
+      nouveau:
+        description: "Nouveau texte"
+        required: true
+      appliquer:
+        description: "Appliquer la modification (sinon simulation)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: wordpress-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  cf7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remplacer dans le formulaire
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          TITRE: ${{ inputs.titre }}
+          ANCIEN: ${{ inputs.ancien }}
+          NOUVEAU: ${{ inputs.nouveau }}
+        run: python3 scripts/cf7_replace.py "$TITRE" "$ANCIEN" "$NOUVEAU" ${{ inputs.appliquer && '--apply' || '' }}

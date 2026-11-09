@@ -32,6 +32,11 @@ Insérés dans les pages par `python3 scripts/popup.py` (à relancer après tout
 
 Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts/popup.py`.
 
+## Modifier un formulaire Contact Form 7
+
+Actions → **Modifier un formulaire Contact Form 7** → Run workflow : titre du formulaire, texte à remplacer, nouveau texte.
+Laisser « appliquer » décoché pour une simulation (affiche le passage trouvé), puis relancer en cochant. Seul le gabarit du formulaire change (mails et réglages Stripe intacts).
+
 ## Secrets requis (Settings → Secrets and variables → Actions)
 
 - `WP_USER` : compte WordPress dédié (rôle Éditeur)
