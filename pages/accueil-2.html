@@ -3758,7 +3758,7 @@
   function fix() {
     document.querySelectorAll("#smart-header .nav-cta, #mobile-menu-overlay .nav-cta, .nav-cta.m-cta").forEach((a) => {
       if (/pré-inscription/i.test(a.textContent) && a.textContent.trim() !== LABEL) a.textContent = LABEL;
-      if (/pre-inscription-2027-2028/.test(a.getAttribute("href") || "")) a.setAttribute("href", HREF);
+      if (/pre-inscription-2026-2027/.test(a.getAttribute("href") || "")) a.setAttribute("href", HREF);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix, { once: true });
