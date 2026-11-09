@@ -41,10 +41,20 @@ def api(method, path, body=None):
         headers["Content-Type"] = "application/json"
     req = urllib.request.Request(f"{SITE}/wp-json/wp/v2/{path}", data=data, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
+        with urllib.request.urlopen(req, timeout=int(os.environ.get("WP_TIMEOUT", "300"))) as r:
             return json.loads(r.read())
     except urllib.error.HTTPError as e:
-        sys.exit(f"Erreur {e.code} sur {method} {path} : {e.read()[:500].decode(errors='replace')}")
+        raise SyncError(f"Erreur {e.code} sur {method} {path} : {e.read()[:500].decode(errors='replace')}")
+    except (urllib.error.URLError, TimeoutError, OSError) as e:
+        raise SyncTimeout(f"Pas de réponse sur {method} {path} : {e}")
+
+
+class SyncError(Exception):
+    pass
+
+
+class SyncTimeout(SyncError):
+    pass
 
 
 def load_manifest():
@@ -56,6 +66,13 @@ def save_manifest(m):
 
 
 def cmd_import(_args):
+    try:
+        _import()
+    except SyncError as e:
+        sys.exit(str(e))
+
+
+def _import():
     pages, n = [], 1
     while True:
         batch = api("GET", f"pages?context=edit&per_page=100&page={n}&status=publish,draft,private,pending,future")
@@ -97,19 +114,34 @@ def cmd_push(args):
             print(f"ERREUR    {slug} : absente de manifest.json (créer la page dans WordPress puis relancer l'import)")
             errors += 1
             continue
-        current = api("GET", f"pages/{entry['id']}?context=edit&_fields=modified_gmt,content")
-        if current["modified_gmt"] != entry["modified_gmt"] and not args.force:
-            print(f"ERREUR    {slug} : modifiée dans WordPress le {current['modified_gmt']} (UTC) depuis le dernier import. "
-                  "Relancer l'import pour récupérer ces changements, ou publier avec l'option force.")
-            errors += 1
-            continue
         content = path.read_text(encoding="utf-8")
-        if current["content"]["raw"] == content:
-            print(f"inchangée {slug}")
-            continue
-        updated = api("POST", f"pages/{entry['id']}", {"content": content})
-        entry["modified_gmt"] = updated["modified_gmt"]
-        print(f"publiée   {slug}  -> {updated['link']}")
+        try:
+            current = api("GET", f"pages/{entry['id']}?context=edit&_fields=modified_gmt,content")
+            if current["modified_gmt"] != entry["modified_gmt"] and not args.force:
+                print(f"ERREUR    {slug} : modifiée dans WordPress le {current['modified_gmt']} (UTC) depuis le dernier import. "
+                      "Relancer l'import pour récupérer ces changements, ou publier avec l'option force.")
+                errors += 1
+                continue
+            if current["content"]["raw"] == content:
+                print(f"inchangée {slug}")
+                entry["modified_gmt"] = current["modified_gmt"]
+                save_manifest(manifest)
+                continue
+            try:
+                updated = api("POST", f"pages/{entry['id']}", {"content": content})
+            except SyncTimeout:
+                # Le serveur a pu enregistrer sans répondre à temps : on vérifie avant de conclure.
+                check = api("GET", f"pages/{entry['id']}?context=edit&_fields=modified_gmt,content,link")
+                if check["content"]["raw"] != content:
+                    raise
+                updated = check
+                print(f"(réponse tardive, enregistrement vérifié) {slug}")
+            entry["modified_gmt"] = updated["modified_gmt"]
+            save_manifest(manifest)
+            print(f"publiée   {slug}  -> {updated['link']}")
+        except SyncError as e:
+            print(f"ERREUR    {slug} : {e}")
+            errors += 1
     save_manifest(manifest)
     if errors:
         sys.exit(f"{errors} page(s) non publiée(s).")
