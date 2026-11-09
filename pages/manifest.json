@@ -1,0 +1,114 @@
+{
+  "82271-2": {
+    "id": 82271,
+    "titre": "",
+    "statut": "publish",
+    "template": "",
+    "url": "https://www.academiedelaveau.com/82271-2/",
+    "modified_gmt": "2025-11-26T18:40:58"
+  },
+  "academie-delaveau": {
+    "id": 81751,
+    "titre": "Académie Delaveau",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/academie-delaveau/",
+    "modified_gmt": "2026-09-25T21:16:32"
+  },
+  "academie-espoir": {
+    "id": 81753,
+    "titre": "Académie Espoir",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/academie-espoir/",
+    "modified_gmt": "2026-09-25T21:48:30"
+  },
+  "accueil-2": {
+    "id": 81909,
+    "titre": "Accueil",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/",
+    "modified_gmt": "2026-09-25T20:55:09"
+  },
+  "contactez-nous": {
+    "id": 81761,
+    "titre": "Contactez Nous",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/contactez-nous/",
+    "modified_gmt": "2025-12-03T15:17:19"
+  },
+  "inscription-aux-stages": {
+    "id": 82275,
+    "titre": "Inscription aux Stages",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/inscription-aux-stages/",
+    "modified_gmt": "2026-09-26T07:38:25"
+  },
+  "le-lab": {
+    "id": 82209,
+    "titre": "Le LAB",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/le-lab/",
+    "modified_gmt": "2025-11-27T16:32:59"
+  },
+  "les-stages": {
+    "id": 81757,
+    "titre": "Les Stages",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/les-stages/",
+    "modified_gmt": "2026-09-25T22:13:04"
+  },
+  "mentions-legales": {
+    "id": 82185,
+    "titre": "Mentions légales",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/mentions-legales/",
+    "modified_gmt": "2025-11-28T07:46:51"
+  },
+  "merci-de-votre-inscription": {
+    "id": 82459,
+    "titre": "Merci de votre Inscription !",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/merci-de-votre-inscription/",
+    "modified_gmt": "2025-11-30T09:48:15"
+  },
+  "nos-formations": {
+    "id": 81755,
+    "titre": "Nos Formations",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/nos-formations/",
+    "modified_gmt": "2026-09-25T21:49:58"
+  },
+  "page-82432": {
+    "id": 82432,
+    "titre": "Hello Theme #82432",
+    "statut": "draft",
+    "template": "",
+    "url": "https://www.academiedelaveau.com/?page_id=82432",
+    "modified_gmt": "2025-11-29T10:23:12"
+  },
+  "portes-ouvertes": {
+    "id": 82544,
+    "titre": "Portes Ouvertes",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/portes-ouvertes/",
+    "modified_gmt": "2026-02-17T14:11:23"
+  },
+  "pre-inscription-2026-2027": {
+    "id": 81867,
+    "titre": "Pré Inscription 2026 - 2027",
+    "statut": "publish",
+    "template": "elementor_canvas",
+    "url": "https://www.academiedelaveau.com/pre-inscription-2026-2027/",
+    "modified_gmt": "2025-11-25T09:27:20"
+  }
+}

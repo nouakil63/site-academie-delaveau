@@ -1,0 +1,836 @@
+<!-- wp:shortcode -->
+[adl_smart_menu]
+<!-- /wp:shortcode -->
+
+<!-- wp:html -->
+<!-- ========================================== -->
+<!--  LAB (GSAP + EXTRA SECTIONS) -->
+<!-- ========================================== -->
+
+<!-- CHARGEMENT DES LIBRAIRIES GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<div id="lab-full-wrapper">
+    
+    <!-- TEXTURE GRAIN (FILM LOOK) -->
+    <div class="lab-grain"></div>
+
+    <!-- 1. HERO SECTION -->
+    <header class="lab-hero">
+        <div class="hero-bg-wrapper">
+            <img src="https://www.academiedelaveau.com/wp-content/uploads/2023/02/slider3.jpg" alt="Cover" class="hero-img" data-speed="0.5">
+        </div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>PROGRAMME LE LAB</span>
+                <span>CAVALIERS PROPRIÉTAIRES</span>
+            </div>
+            <h1 class="hero-title">
+                <div class="line"><span class="word">L'INCUBATEUR</span></div>
+                <div class="line"><span class="word italic-font text-gold">DU HAUT NIVEAU</span></div>
+            </h1>
+            <p class="hero-sub">Après le bac, pour cavaliers propriétaires ambitieux</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- [NOUVEAU] 2. VELOCITY SCROLL (TEXTE VITESSE) -->
+    <section class="lab-velocity">
+        <div class="velocity-line v-left">
+            <span>CAVALIERS PROPRIÉTAIRES — PROJET SPORTIF — ENGAGEMENT — </span>
+            <span>CAVALIERS PROPRIÉTAIRES — PROJET SPORTIF — ENGAGEMENT — </span>
+        </div>
+        <div class="velocity-line v-right text-gold italic-font">
+            <span>COACHING — CONCOURS — SUIVI PERSONNALISÉ — </span>
+            <span>COACHING — CONCOURS — SUIVI PERSONNALISÉ — </span>
+        </div>
+        <div class="velocity-line v-left">
+            <span>DEAUVILLE — HAUT NIVEAU — AVENIR — </span>
+            <span>DEAUVILLE — HAUT NIVEAU — AVENIR — </span>
+        </div>
+    </section>
+
+    <!-- 3. MANIFESTO (AVEC REVEAL PAR LIGNE) -->
+    <section class="lab-manifesto">
+        <div class="container">
+            <div class="manifesto-text" id="manifesto-reveal">
+                <div class="reveal-line">Vous êtes cavalier, propriétaire de votre cheval, et vous ne voulez pas vous arrêter au bac.</div>
+                <div class="reveal-line"><span class="highlight">Vous voulez continuer à progresser</span> sans entrer dans un cursus scolaire classique.</div>
+                <div class="reveal-line">Avec <span class="highlight text-gold">Le Lab by Académie Delaveau</span>, vous construisez un projet sportif ambitieux autour de votre cheval,</div>
+                <div class="reveal-line">au cœur du Pôle International du Cheval Longines, avec l'encadrement de Patrice Delaveau et de l'équipe de l'Académie.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HORIZONTAL SCROLL (PILLARS) -->
+    <section class="lab-horizontal-scroll">
+        <div class="pin-wrap">
+            <div class="h-title">
+                <h2>LE PROGRAMME</h2>
+                <span class="arrow-right">→</span>
+            </div>
+            
+            <div class="h-card">
+                <div class="h-img-box">
+                    <img src="https://www.academiedelaveau.com/wp-content/uploads/2025/09/Expsport-1.jpg" alt="Sport">
+                    <div class="h-number">01</div>
+                </div>
+                <div class="h-info">
+                    <h3>Cheval & Performance</h3>
+                    <p>Encadrement quotidien du couple cheval / cavalier : travail sur le plat, gymnastique à l'obstacle, préparation ciblée de vos objectifs (Amateur, Pro, jeunes chevaux…).</p>
+                </div>
+            </div>
+
+            <div class="h-card">
+                <div class="h-img-box">
+                    <img src="https://www.academiedelaveau.com/wp-content/uploads/2024/10/IMG-20241014-WA0035.jpg" alt="Projet">
+                    <div class="h-number">02</div>
+                </div>
+                <div class="h-info">
+                    <h3>Projet sur-mesure</h3>
+                    <p>Programme modulable sur l'année : intensité, périodes d'entraînement, coup de boost avant une échéance… Le Lab s'adapte à votre rythme (études, travail, saison sportive).</p>
+                </div>
+            </div>
+
+            <div class="h-card">
+                <div class="h-img-box">
+                    <img src="https://www.academiedelaveau.com/wp-content/uploads/2024/10/IMG-20241014-WA0036.jpg" alt="Concours">
+                    <div class="h-number">03</div>
+                </div>
+                <div class="h-info">
+                    <h3>Concours & coaching</h3>
+                    <p>Construction d'un planning de concours avec l'équipe, reconnaissance, coaching sur les terrains et débrief vidéo pour faire progresser chaque parcours.</p>
+                </div>
+            </div>
+             <div class="h-spacer"></div>
+        </div>
+    </section>
+
+    <!-- [NOUVEAU] 5. FLOATING GALLERY (DÉSTRUCTURÉE) -->
+    <section class="lab-floating-gallery">
+        <div class="floating-wrapper">
+            <div class="float-txt">
+                <span class="section-tag">ATMOSPHÈRE</span>
+                <h2>L'ESPRIT <br> <span class="italic-font text-gold">DU LAB</span></h2>
+            </div>
+            <!-- Image 1 (Rapide) -->
+            <div class="float-img f-1" data-speed="1.2">
+                <img src="https://www.academiedelaveau.com/wp-content/uploads/2023/05/elite.jpg" alt="Atmosphere">
+            </div>
+            <!-- Image 2 (Lente) -->
+            <div class="float-img f-2" data-speed="0.8">
+                <img src="https://www.academiedelaveau.com/wp-content/uploads/2025/10/MjAyMzAzYjBmZTg2M2NmYzM0ZDMxNTY0Yjk4ODE1ZGNjMjc4ZDE-1.avif" alt="Atmosphere">
+            </div>
+            <!-- Image 3 (Rotation) -->
+            <div class="float-img f-3" data-speed="1.5">
+                <img src="https://www.academiedelaveau.com/wp-content/uploads/2023/05/P2.png" alt="Atmosphere">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. THE SQUAD (MENTORS INTERACTIVE) -->
+    <section class="lab-mentors">
+        <div class="mentors-header">
+            <span class="section-tag">L'ENCADREMENT</span>
+            <h2>POUR VOUS ENCADRER</h2>
+        </div>
+        
+        <div class="cursor-img-wrapper">
+            <img src="" class="cursor-img" id="mentor-reveal-img">
+        </div>
+
+        <ul class="mentor-list">
+            <li class="mentor-item" data-src="https://www.academiedelaveau.com/wp-content/uploads/2023/05/elite.jpg">
+                <span class="m-role">Coach référent</span>
+                <span class="m-name">Patrice Delaveau</span>
+                <span class="m-arrow">↗</span>
+            </li>
+            <li class="mentor-item" data-src="https://www.academiedelaveau.com/wp-content/uploads/2024/10/IMG-20241014-WA0035.jpg">
+                <span class="m-role">Équipe pédagogique</span>
+                <span class="m-name">Enseignants Académie Delaveau</span>
+                <span class="m-arrow">↗</span>
+            </li>
+            <li class="mentor-item" data-src="https://www.academiedelaveau.com/wp-content/uploads/2023/05/P4.png">
+                <span class="m-role">Experts</span>
+                <span class="m-name">Intervenants externes (sport, santé, image)</span>
+                <span class="m-arrow">↗</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 7. ADMISSION (PROCESSUS) -->
+    <section class="lab-agenda">
+        <div class="agenda-container">
+            <div class="agenda-intro">
+                <span class="section-tag">ADMISSION</span>
+                <h2>PROCESSUS D'ENTRÉE</h2>
+                <p>Le Lab est volontairement limité en nombre de cavaliers pour garantir un suivi réellement personnalisé. L'admission se fait en plusieurs étapes simples, mais sélectives.</p>
+            </div>
+            <div class="agenda-list">
+                <div class="agenda-row">
+                    <span class="a-time">1</span>
+                    <span class="a-label">Premier contact & formulaire</span>
+                </div>
+                <div class="agenda-row">
+                    <span class="a-time">2</span>
+                    <span class="a-label">Envoi de vidéos du couple cheval / cavalier (parcours, travail sur le plat) et présentation de votre projet sportif.</span>
+                </div>
+                <div class="agenda-row">
+                    <span class="a-time">3</span>
+                    <span class="a-label">Entretien avec l'équipe de l'Académie Delaveau pour valider l'adéquation entre votre projet, votre niveau et le Lab.</span>
+                </div>
+                <div class="agenda-row">
+                    <span class="a-time">4</span>
+                    <span class="a-label">Validation, définition de la durée du programme, des objectifs de saison et des modalités d'accueil de votre cheval.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [NOUVEAU] 8. MASK REVEAL (TEXTE TRANSPARENT SUR IMAGE) -->
+    <section class="lab-mask-reveal">
+        <div class="mask-container">
+            <div class="mask-bg"></div>
+            <h2 class="mask-text">LE LAB</h2>
+        </div>
+    </section>
+
+    <!-- 9. MARQUEE (PARTNERS) -->
+    <section class="lab-marquee">
+        <div class="marquee-track">
+            <span>LE LAB BY ACADÉMIE DELAVEAU • PÔLE INTERNATIONAL DU CHEVAL LONGINES DEAUVILLE • COACHING SUR-MESURE • CONCOURS & PERFORMANCE • LE LAB BY ACADÉMIE DELAVEAU •</span>
+        </div>
+    </section>
+
+    <!-- 10. STATS -->
+    <section class="lab-stats">
+        <div class="stat-box">
+            <span class="stat-num counter" data-target="100">0</span><span class="symbol">%</span>
+            <span class="stat-label">Sur-mesure</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num counter" data-target="12">0</span>
+            <span class="stat-label">Places par promo</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num counter" data-target="360">0</span><span class="symbol">°</span>
+            <span class="stat-label">Vision de votre projet</span>
+        </div>
+    </section>
+
+    <!-- 11. FAQ -->
+    <section class="lab-faq">
+        <div class="faq-container">
+            <div class="faq-header">
+                <span class="section-tag text-gold">DETAILS</span>
+                <h2>QUESTIONS</h2>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>À qui s'adresse le Lab ? <span class="plus">+</span></summary>
+                    <p>Le Lab est pensé pour les cavaliers de 18 ans et plus, propriétaires ou ayant un cheval de sport à disposition, qui souhaitent continuer à progresser après le bac ou en parallèle d'études supérieures.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Dois-je venir avec mon cheval ? <span class="plus">+</span></summary>
+                    <p>Oui, le Lab est construit autour du couple cavalier / cheval. Votre cheval est au cœur du projet sportif. Des solutions peuvent être étudiées au cas par cas si vous n'êtes pas encore propriétaire.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Puis-je suivre des études en parallèle ? <span class="plus">+</span></summary>
+                    <p>Le Lab fonctionne hors cursus scolaire classique. Il permet d'ajuster les périodes d'entraînement et de concours à votre calendrier (études supérieures, activité professionnelle, etc.) pour faire exister votre projet sportif sans sacrifier le reste.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. FOOTER CTA -->
+    <section class="lab-footer">
+        <div class="footer-bg">
+            <img src="https://www.academiedelaveau.com/wp-content/uploads/2023/02/slider3.jpg" alt="Footer BG">
+        </div>
+        <div class="footer-content">
+            <h2>Prêt à faire de votre cheval <br> <span class="text-gold italic-font">Votre projet principal ?</span></h2>
+            <a href="https://academiedelaveau.com/pre-inscription-2026-2027/" class="btn-giant">REJOINDRE LE LAB</a>
+        </div>
+    </section>
+
+</div>
+
+<!-- STYLES CSS (SCOPED) -->
+<style>
+    /* VARIABLES GLOBAL */
+    #lab-full-wrapper {
+        --c-dark: #050a14;
+        --c-blue: #0f1c30;
+        --c-gold: #C9A961;
+        --c-white: #f3f3f3;
+        --f-serif: 'Cormorant Garamond', serif;
+        --f-sans: 'Montserrat', sans-serif;
+        
+        background-color: var(--c-dark);
+        color: var(--c-white);
+        font-family: var(--f-sans);
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    #lab-full-wrapper * { box-sizing: border-box; }
+    #lab-full-wrapper .italic-font { font-family: var(--f-serif); font-style: italic; }
+    #lab-full-wrapper .text-gold { color: var(--c-gold); }
+    #lab-full-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    #lab-full-wrapper .section-tag { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--c-gold); margin-bottom: 1rem; display: block; }
+
+    /* GRAIN */
+    .lab-grain {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none; z-index: 90; opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* HERO */
+    .lab-hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 120%; z-index: 1; filter: brightness(0.6); }
+    .hero-content { position: relative; z-index: 10; text-align: center; }
+    .hero-meta { font-size: 0.8rem; letter-spacing: 4px; color: var(--c-gold); margin-bottom: 2rem; display: flex; gap: 2rem; justify-content: center; }
+    .hero-title { font-family: var(--f-serif); font-size: clamp(3.5rem, 10vw, 9rem); line-height: 0.9; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero-title .line { overflow: hidden; display: block; }
+    .hero-title .word { display: block; transform: translateY(100%); }
+    .hero-sub { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0; }
+    .scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); z-index: 10; opacity: 0; }
+    .mouse { width: 30px; height: 50px; border: 2px solid rgba(255,255,255,0.5); border-radius: 20px; position: relative; }
+    .wheel { width: 4px; height: 8px; background: var(--c-gold); border-radius: 2px; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); animation: scrollWheel 1.5s infinite; }
+    @keyframes scrollWheel { 0% {top: 10px; opacity: 1;} 100% {top: 30px; opacity: 0;} }
+
+    /* [NEW] VELOCITY SCROLL */
+    .lab-velocity { padding: 4rem 0; background: var(--c-dark); overflow: hidden; }
+    .velocity-line { font-family: var(--f-serif); font-size: 8rem; line-height: 1; white-space: nowrap; color: rgba(255,255,255,0.05); }
+    .velocity-line span { display: inline-block; padding-right: 2rem; }
+    .v-right { text-align: right; color: rgba(201, 169, 97, 0.1); }
+
+    /* MANIFESTO AVEC REVEAL PAR LIGNE */
+    .lab-manifesto { padding: 10rem 10%; background: var(--c-dark); }
+    .manifesto-text { 
+        font-family: var(--f-serif); 
+        font-size: clamp(2rem, 4vw, 3.5rem); 
+        line-height: 1.4; 
+        text-align: center; 
+    }
+    .reveal-line {
+        opacity: 0;
+        transform: translateY(60px);
+        color: rgba(255,255,255,0.1);
+        margin-bottom: 0.5em;
+        filter: blur(8px);
+    }
+    .reveal-line.active {
+        opacity: 1;
+        color: var(--c-white);
+        filter: blur(0px);
+    }
+    .manifesto-text .highlight { 
+        color: var(--c-white); 
+        opacity: 1; 
+    }
+
+    /* HORIZONTAL SCROLL */
+    .lab-horizontal-scroll { overflow: hidden; }
+    .pin-wrap { height: 100vh; display: flex; align-items: center; padding: 0 5vw; background: var(--c-white); color: var(--c-dark); width: max-content; }
+    .h-title { min-width: 30vw; margin-right: 5vw; }
+    .h-title h2 { font-family: var(--f-serif); font-size: 6rem; line-height: 1; }
+    .arrow-right { font-size: 4rem; color: var(--c-gold); }
+    .h-card { width: 40vw; margin-right: 5vw; display: flex; flex-direction: column; gap: 2rem; position: relative; }
+    .h-img-box { height: 50vh; width: 100%; overflow: hidden; position: relative; }
+    .h-img-box img { transition: transform 0.5s ease; }
+    .h-card:hover .h-img-box img { transform: scale(1.1); }
+    .h-number { position: absolute; top: 0; left: 0; font-family: var(--f-serif); font-size: 6rem; color: var(--c-white); line-height: 1; padding: 1rem; mix-blend-mode: difference; }
+    .h-info h3 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--c-blue); font-family: var(--f-serif); }
+    .h-info p { font-size: 1rem; line-height: 1.6; color: #555; border-left: 2px solid var(--c-gold); padding-left: 1rem; }
+    .h-spacer { width: 10vw; }
+
+    /* [NEW] FLOATING GALLERY */
+    .lab-floating-gallery { position: relative; height: 150vh; background: var(--c-dark); overflow: hidden; }
+    .floating-wrapper { position: relative; height: 100%; width: 100%; max-width: 1400px; margin: 0 auto; }
+    .float-txt { position: absolute; top: 20%; left: 10%; z-index: 10; mix-blend-mode: difference; }
+    .float-txt h2 { font-family: var(--f-serif); font-size: 5rem; line-height: 1; }
+    .float-img { position: absolute; overflow: hidden; }
+    .f-1 { top: 10%; right: 10%; width: 300px; height: 400px; }
+    .f-2 { top: 50%; left: 20%; width: 250px; height: 350px; z-index: 5; }
+    .f-3 { bottom: 10%; right: 30%; width: 350px; height: 250px; }
+
+    /* MENTORS */
+    .lab-mentors { padding: 10rem 10%; background: var(--c-dark); position: relative; }
+    .mentors-header { text-align: center; margin-bottom: 6rem; }
+    .mentors-header h2 { font-family: var(--f-serif); font-size: 5rem; color: var(--c-white); margin: 0; }
+    .mentor-list { list-style: none; padding: 0; max-width: 1000px; margin: 0 auto; }
+    .mentor-item { display: flex; justify-content: space-between; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+    .mentor-item:hover { padding-left: 2rem; border-color: var(--c-gold); }
+    .m-role { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--c-gold); width: 20%; }
+    .m-name { font-family: var(--f-serif); font-size: 3rem; color: var(--c-white); }
+    .m-arrow { font-size: 2rem; opacity: 0; transition: 0.3s; }
+    .mentor-item:hover .m-arrow { opacity: 1; }
+    .cursor-img-wrapper { position: fixed; top: 0; left: 0; width: 300px; height: 400px; pointer-events: none; z-index: 50; opacity: 0; transform: translate(-50%, -50%) scale(0.8); transition: opacity 0.3s, transform 0.6s ease; }
+    .cursor-img-wrapper.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+    /* AGENDA / ADMISSION */
+    .lab-agenda { padding: 10rem 5%; background: var(--c-blue); }
+    .agenda-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+    .agenda-intro h2 { font-family: var(--f-serif); font-size: 4rem; margin-bottom: 2rem; line-height: 1; }
+    .agenda-row { display: flex; gap: 3rem; padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); align-items: center; }
+    .a-time { font-family: var(--f-serif); font-size: 3rem; color: var(--c-gold); width: 150px; }
+    .a-label { font-size: 1.2rem; letter-spacing: 1px; }
+
+    /* [NEW] MASK REVEAL */
+    .lab-mask-reveal { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; background: var(--c-dark); overflow: hidden; }
+    .mask-container { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .mask-bg { position: absolute; inset: 0; background-image: url('https://www.academiedelaveau.com/wp-content/uploads/2023/02/slider3.jpg'); background-size: cover; background-position: center; filter: grayscale(1); }
+    .mask-text { font-family: var(--f-serif); font-size: 15vw; font-weight: 900; color: var(--c-dark); background: var(--c-white); mix-blend-mode: screen; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; margin: 0; letter-spacing: -5px; }
+
+    /* MARQUEE */
+    .lab-marquee { padding: 4rem 0; background: var(--c-gold); color: var(--c-dark); overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 2rem; font-weight: 700; letter-spacing: 4px; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* STATS & FAQ */
+    .lab-stats { padding: 8rem 5%; background: var(--c-blue); display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+    .stat-num { font-family: var(--f-serif); font-size: 5rem; color: var(--c-gold); line-height: 1; }
+    .symbol { font-family: var(--f-serif); font-size: 5rem; color: var(--c-gold); }
+    .stat-label { display: block; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-top: 1rem; }
+    
+    .lab-faq { padding: 10rem 10%; background: var(--c-white); color: var(--c-dark); }
+    .faq-header { text-align: center; margin-bottom: 6rem; }
+    .faq-header h2 { font-family: var(--f-serif); font-size: 5rem; color: var(--c-blue); margin: 0; }
+    .faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); padding: 2rem 0; }
+    .faq-item summary { font-family: var(--f-serif); font-size: 2rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--c-blue); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item p { margin-top: 1.5rem; line-height: 1.6; max-width: 800px; color: #555; }
+    .plus { font-size: 2rem; color: var(--c-gold); transition: 0.3s; }
+    .faq-item[open] .plus { transform: rotate(45deg); }
+
+    /* FOOTER */
+    .lab-footer { height: 90vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .footer-bg { position: absolute; inset: 0; z-index: 1; filter: grayscale(1) brightness(0.4); }
+    .footer-content { position: relative; z-index: 10; text-align: center; }
+    .footer-content h2 { font-family: var(--f-serif); font-size: 5rem; line-height: 1; margin-bottom: 4rem; }
+    .btn-giant { display: inline-block; border: 1px solid rgba(255,255,255,0.3); padding: 2rem 5rem; color: var(--c-white); text-decoration: none; font-size: 1.2rem; letter-spacing: 4px; transition: 0.4s; backdrop-filter: blur(5px); }
+    .btn-giant:hover { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-dark); transform: scale(1.05); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+        /* Hero */
+        .hero-title { font-size: 12vw; }
+        .hero-meta { flex-direction: column; gap: 0.5rem; font-size: 0.7rem; }
+        .hero-sub { font-size: 0.9rem; padding: 0 2rem; }
+        
+        /* Velocity */
+        .velocity-line { font-size: 4rem; }
+        
+        /* Manifesto */
+        .lab-manifesto { padding: 6rem 5%; }
+        .manifesto-text { font-size: clamp(1.5rem, 5vw, 2.5rem); }
+        
+        /* Horizontal scroll devient vertical */
+        .pin-wrap { 
+            display: block; 
+            height: auto; 
+            padding: 4rem 2rem; 
+            width: 100%; 
+        }
+        .h-title { 
+            min-width: 100%; 
+            margin-right: 0; 
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .h-title h2 { font-size: 3rem; }
+        .arrow-right { font-size: 2rem; }
+        .h-card { 
+            width: 100%; 
+            margin-bottom: 4rem; 
+            margin-right: 0;
+        }
+        .h-img-box { height: 40vh; }
+        .h-number { font-size: 4rem; }
+        .h-info h3 { font-size: 1.8rem; }
+        .h-spacer { display: none; }
+        
+        /* Floating gallery */
+        .lab-floating-gallery { height: auto; padding: 4rem 2rem; }
+        .floating-wrapper { position: static; }
+        .float-txt { 
+            position: static; 
+            margin-bottom: 3rem; 
+            text-align: center;
+            mix-blend-mode: normal;
+        }
+        .float-txt h2 { font-size: 3rem; }
+        .float-img { 
+            position: relative !important; 
+            width: 100% !important; 
+            height: 300px !important; 
+            top: auto !important; 
+            left: auto !important; 
+            right: auto !important; 
+            margin-bottom: 2rem; 
+        }
+        
+        /* Mentors */
+        .lab-mentors { padding: 6rem 5%; }
+        .mentors-header h2 { font-size: 3rem; }
+        .mentor-item { 
+            flex-direction: column; 
+            align-items: flex-start; 
+            gap: 1rem; 
+            padding: 2rem 0;
+        }
+        .mentor-item:hover { padding-left: 0; }
+        .m-role { width: 100%; }
+        .m-name { font-size: 2rem; }
+        .m-arrow { display: none; }
+        .cursor-img-wrapper { display: none !important; }
+        
+        /* Agenda */
+        .lab-agenda { padding: 6rem 5%; }
+        .agenda-container { 
+            grid-template-columns: 1fr; 
+            gap: 3rem; 
+        }
+        .agenda-intro h2 { font-size: 3rem; }
+        .agenda-row { 
+            flex-direction: column; 
+            align-items: flex-start; 
+            gap: 1rem; 
+        }
+        .a-time { 
+            font-size: 2rem; 
+            width: auto; 
+        }
+        .a-label { font-size: 1rem; }
+        
+        /* Mask reveal */
+        .mask-text { font-size: 20vw; letter-spacing: -2px; }
+        
+        /* Marquee */
+        .marquee-track { font-size: 1.2rem; }
+        
+        /* Stats */
+        .lab-stats { 
+            grid-template-columns: 1fr; 
+            gap: 3rem; 
+            padding: 6rem 5%;
+        }
+        .stat-num, .symbol { font-size: 4rem; }
+        
+        /* FAQ */
+        .lab-faq { padding: 6rem 5%; }
+        .faq-header h2 { font-size: 3rem; }
+        .faq-item summary { font-size: 1.5rem; }
+        
+        /* Footer */
+        .lab-footer { height: 70vh; }
+        .footer-content h2 { font-size: 3rem; padding: 0 2rem; }
+        .btn-giant { 
+            padding: 1.5rem 3rem; 
+            font-size: 1rem; 
+        }
+    }
+
+    @media (max-width: 768px) {
+        /* Hero */
+        .hero-title { font-size: 15vw; }
+        .hero-meta { font-size: 0.6rem; letter-spacing: 2px; }
+        .hero-sub { font-size: 0.8rem; }
+        .scroll-indicator { bottom: 2rem; }
+        
+        /* Velocity */
+        .velocity-line { font-size: 2.5rem; }
+        .lab-velocity { padding: 2rem 0; }
+        
+        /* Manifesto */
+        .lab-manifesto { padding: 4rem 5%; }
+        .manifesto-text { font-size: clamp(1.2rem, 4.5vw, 2rem); }
+        .reveal-line { margin-bottom: 0.8em; }
+        
+        /* Horizontal cards */
+        .pin-wrap { padding: 3rem 1.5rem; }
+        .h-title h2 { font-size: 2.5rem; }
+        .h-card { margin-bottom: 3rem; }
+        .h-img-box { height: 35vh; }
+        .h-number { font-size: 3rem; padding: 0.5rem; }
+        .h-info h3 { font-size: 1.5rem; }
+        .h-info p { font-size: 0.9rem; }
+        
+        /* Floating gallery */
+        .lab-floating-gallery { padding: 3rem 1.5rem; }
+        .float-txt h2 { font-size: 2.5rem; }
+        .float-img { height: 250px !important; }
+        
+        /* Mentors */
+        .lab-mentors { padding: 4rem 5%; }
+        .mentors-header { margin-bottom: 3rem; }
+        .mentors-header h2 { font-size: 2.5rem; }
+        .m-name { font-size: 1.5rem; }
+        .m-role { font-size: 0.7rem; }
+        
+        /* Agenda */
+        .lab-agenda { padding: 4rem 5%; }
+        .agenda-intro h2 { font-size: 2.5rem; }
+        .agenda-intro p { font-size: 0.9rem; }
+        .agenda-container { gap: 2rem; }
+        .a-time { font-size: 1.8rem; }
+        .a-label { font-size: 0.9rem; }
+        
+        /* Mask reveal */
+        .mask-text { font-size: 25vw; }
+        
+        /* Marquee */
+        .marquee-track { font-size: 1rem; letter-spacing: 2px; }
+        .lab-marquee { padding: 2rem 0; }
+        
+        /* Stats */
+        .lab-stats { padding: 4rem 5%; gap: 2rem; }
+        .stat-num, .symbol { font-size: 3rem; }
+        .stat-label { font-size: 0.8rem; }
+        
+        /* FAQ */
+        .lab-faq { padding: 4rem 5%; }
+        .faq-header { margin-bottom: 3rem; }
+        .faq-header h2 { font-size: 2.5rem; }
+        .faq-item { padding: 1.5rem 0; }
+        .faq-item summary { font-size: 1.3rem; }
+        .faq-item p { font-size: 0.9rem; margin-top: 1rem; }
+        .plus { font-size: 1.5rem; }
+        
+        /* Footer */
+        .lab-footer { height: 60vh; }
+        .footer-content h2 { font-size: 2rem; margin-bottom: 2rem; }
+        .btn-giant { 
+            padding: 1.2rem 2.5rem; 
+            font-size: 0.9rem; 
+            letter-spacing: 2px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        /* Hero */
+        .hero-title { font-size: 18vw; }
+        .hero-meta { gap: 0.3rem; }
+        .hero-sub { font-size: 0.7rem; letter-spacing: 1px; }
+        
+        /* Velocity */
+        .velocity-line { font-size: 2rem; }
+        
+        /* Manifesto */
+        .lab-manifesto { padding: 3rem 5%; }
+        .manifesto-text { font-size: clamp(1rem, 5vw, 1.5rem); line-height: 1.5; }
+        
+        /* Horizontal cards */
+        .pin-wrap { padding: 2rem 1rem; }
+        .h-title h2 { font-size: 2rem; }
+        .h-card { margin-bottom: 2.5rem; }
+        .h-img-box { height: 30vh; }
+        .h-number { font-size: 2.5rem; }
+        .h-info h3 { font-size: 1.3rem; }
+        .h-info p { font-size: 0.85rem; padding-left: 0.8rem; }
+        
+        /* Floating gallery */
+        .lab-floating-gallery { padding: 2rem 1rem; }
+        .float-txt h2 { font-size: 2rem; }
+        .float-img { height: 200px !important; margin-bottom: 1.5rem; }
+        
+        /* Mentors */
+        .lab-mentors { padding: 3rem 5%; }
+        .mentors-header h2 { font-size: 2rem; }
+        .m-name { font-size: 1.3rem; }
+        .mentor-item { padding: 1.5rem 0; }
+        
+        /* Agenda */
+        .lab-agenda { padding: 3rem 5%; }
+        .agenda-intro h2 { font-size: 2rem; }
+        .agenda-intro p { font-size: 0.85rem; line-height: 1.5; }
+        .a-time { font-size: 1.5rem; }
+        .a-label { font-size: 0.85rem; line-height: 1.4; }
+        
+        /* Stats */
+        .lab-stats { padding: 3rem 5%; }
+        .stat-num, .symbol { font-size: 2.5rem; }
+        .stat-label { font-size: 0.75rem; }
+        
+        /* FAQ */
+        .lab-faq { padding: 3rem 5%; }
+        .faq-header h2 { font-size: 2rem; }
+        .faq-item summary { font-size: 1.1rem; }
+        .faq-item p { font-size: 0.85rem; }
+        
+        /* Footer */
+        .footer-content h2 { font-size: 1.5rem; line-height: 1.2; }
+        .btn-giant { 
+            padding: 1rem 2rem; 
+            font-size: 0.8rem;
+            width: 90%;
+            text-align: center;
+        }
+    }
+
+    /* Landscape orientation mobile */
+    @media (max-width: 926px) and (max-height: 428px) and (orientation: landscape) {
+        .lab-hero { height: 150vh; }
+        .hero-title { font-size: 10vw; }
+        .scroll-indicator { bottom: 1rem; }
+    }
+</style>
+
+<!-- SCRIPTS GSAP ANIMATION -->
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // HERO INTRO (sans loader)
+        gsap.from(".hero-img", { scale: 1.4, duration: 2, ease: "power2.out" });
+        gsap.to(".hero-title .word", { y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.3 });
+        gsap.to(".hero-sub", { opacity: 1, duration: 1, delay: 0.7 });
+        gsap.to(".scroll-indicator", { opacity: 1, duration: 1, delay: 1 });
+
+        // 2. HERO PARALLAX
+        gsap.to(".hero-img", { 
+            scrollTrigger: { trigger: ".lab-hero", start: "top top", end: "bottom top", scrub: true }, 
+            yPercent: 30, 
+            scale: 1.1 
+        });
+
+        // 3. VELOCITY SCROLL
+        gsap.to(".v-left", { 
+            xPercent: -20, 
+            ease: "none", 
+            scrollTrigger: { trigger: ".lab-velocity", scrub: 1 } 
+        });
+        gsap.to(".v-right", { 
+            xPercent: 20, 
+            ease: "none", 
+            scrollTrigger: { trigger: ".lab-velocity", scrub: 1 } 
+        });
+
+        // 4. MANIFESTO - REVEAL PAR LIGNE (BIDIRECTIONNEL + LOURD)
+        gsap.utils.toArray(".reveal-line").forEach((line, index) => {
+            gsap.to(line, {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                color: "rgba(255,255,255,1)",
+                scrollTrigger: {
+                    trigger: line,
+                    start: "top 85%",
+                    end: "top 20%",
+                    scrub: 0.5, // Scroll plus lourd (0.5 au lieu de 1, plus lent et dramatique)
+                    toggleClass: "active"
+                }
+            });
+        });
+
+        // Aussi animer les highlights avec plus d'intensité
+        document.querySelectorAll(".manifesto-text .highlight").forEach(el => {
+            gsap.fromTo(el, 
+                { 
+                    color: "rgba(255,255,255,0.1)",
+                    scale: 0.95
+                }, 
+                { 
+                    color: "#ffffff", 
+                    scale: 1,
+                    scrollTrigger: { 
+                        trigger: el, 
+                        start: "top 80%", 
+                        end: "top 30%", 
+                        scrub: 0.5 
+                    } 
+                }
+            );
+        });
+
+        // 5. HORIZONTAL SCROLL
+        if (window.innerWidth > 1024) {
+            const races = document.querySelector(".pin-wrap");
+            const racesWidth = races.scrollWidth;
+            gsap.to(races, {
+                x: () => -(racesWidth - window.innerWidth),
+                ease: "none",
+                scrollTrigger: { 
+                    trigger: ".lab-horizontal-scroll", 
+                    pin: true, 
+                    scrub: 1, 
+                    start: "top top", 
+                    end: () => "+=" + racesWidth, 
+                    invalidateOnRefresh: true 
+                }
+            });
+        }
+
+        // 6. FLOATING GALLERY (PARALLAX DIFFERENT SPEEDS)
+        if (window.innerWidth > 1024) {
+            document.querySelectorAll(".float-img").forEach(img => {
+                const speed = img.getAttribute("data-speed");
+                gsap.to(img, {
+                    yPercent: -20 * speed,
+                    ease: "none",
+                    scrollTrigger: { 
+                        trigger: ".lab-floating-gallery", 
+                        start: "top bottom", 
+                        end: "bottom top", 
+                        scrub: true 
+                    }
+                });
+            });
+        } else {
+            // Animation simple pour mobile
+            document.querySelectorAll(".float-img").forEach(img => {
+                gsap.from(img, {
+                    opacity: 0,
+                    y: 30,
+                    scrollTrigger: { 
+                        trigger: img, 
+                        start: "top 90%", 
+                        end: "top 60%", 
+                        scrub: 1
+                    }
+                });
+            });
+        }
+
+        // 7. MOUSE REVEAL (MENTORS)
+        const cursorBox = document.querySelector('.cursor-img-wrapper');
+        const cursorImg = document.getElementById('mentor-reveal-img');
+        const wrapper = document.getElementById('lab-full-wrapper');
+        if(window.innerWidth > 1024){
+            wrapper.addEventListener('mousemove', (e) => { 
+                gsap.to(cursorBox, { x: e.clientX, y: e.clientY, duration: 0.6, ease: "power2.out" }); 
+            });
+            document.querySelectorAll('.mentor-item').forEach(item => {
+                item.addEventListener('mouseenter', () => { 
+                    cursorImg.src = item.dataset.src; 
+                    cursorBox.classList.add('active'); 
+                });
+                item.addEventListener('mouseleave', () => { 
+                    cursorBox.classList.remove('active'); 
+                });
+            });
+        }
+
+        // 8. COUNTERS
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            ScrollTrigger.create({
+                trigger: counter, 
+                start: "top 85%", 
+                once: true,
+                onEnter: () => { 
+                    gsap.to(counter, { innerHTML: target, duration: 2, snap: { innerHTML: 1 } }); 
+                }
+            });
+        });
+    });
+</script>
+<!-- /wp:html -->
