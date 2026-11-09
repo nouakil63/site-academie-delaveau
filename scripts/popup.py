@@ -2,8 +2,9 @@
 """Ajoute (ou met à jour) les composants partagés dans les pages.
 
 Composants (dossier components/) :
-  popup-preinscription  pop-up plein écran des pré-inscriptions (accueil uniquement)
+  popup-preinscription  fenêtre centrée des pré-inscriptions (accueil uniquement)
   brevo-masque          masque la pop-up newsletter Brevo (toutes les pages publiées)
+  menu-saison           libellé « Pré-inscription 2027-2028 » du bouton du menu (toutes les pages publiées)
 
 Usage :
   python3 scripts/popup.py                    met à jour tous les composants
@@ -28,6 +29,7 @@ def published_pages():
 COMPONENTS = {
     "popup-preinscription": lambda: ["accueil-2"],
     "brevo-masque": published_pages,
+    "menu-saison": published_pages,
 }
 
 
