@@ -43,7 +43,10 @@ jobs:
       - name: Commiter
         run: |
           git add -A pages
-          git diff --cached --quiet && echo "Aucun changement." || (git commit -m "Renomme la page $ANCIEN en $NOUVEAU" && git push)
+          git diff --cached --quiet && echo "Aucun changement." && exit 0
+          git commit -m "Renomme la page $ANCIEN en $NOUVEAU"
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push && exit 0; sleep $((i * 3)); done
+          exit 1
         env:
           ANCIEN: ${{ inputs.ancien }}
           NOUVEAU: ${{ inputs.nouveau }}

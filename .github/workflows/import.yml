@@ -27,4 +27,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add pages
-          git diff --cached --quiet && echo "Aucun changement." || (git commit -m "Import des pages depuis WordPress" && git push)
+          git diff --cached --quiet && echo "Aucun changement." && exit 0
+          git commit -m "Import des pages depuis WordPress"
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push && exit 0; sleep $((i * 3)); done
+          exit 1
