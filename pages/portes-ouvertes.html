@@ -308,7 +308,7 @@
     <h3>Vous souhaitez venir ?</h3>
     <p>Écrivez-nous ou appelez-nous : nous vous préviendrons dès que la date sera fixée. Vous pouvez aussi déposer dès maintenant votre candidature pour la saison 2027-2028.</p>
     <div class="ak-actions"><a class="ak-btn ak-btn-blue" href="mailto:contact@academiedelaveau.com?subject=Portes%20ouvertes%202027%20%E2%80%94%20Me%20pr%C3%A9venir&amp;body=Bonjour%2C%0A%0AJe%20souhaite%20%C3%AAtre%20pr%C3%A9venu(e)%20de%20la%20date%20de%20la%20journ%C3%A9e%20portes%20ouvertes%202027.%0A%0APr%C3%A9nom%20et%20nom%20%3A%0AT%C3%A9l%C3%A9phone%20%3A%0A">Me prévenir par email<span aria-hidden="true">↗</span></a><a class="ak-btn po-btn-line" href="tel:+33616017066">+33 6 16 01 70 66<span aria-hidden="true">↗</span></a></div>
-    <a class="ak-text-link" href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Déposer ma candidature 2027-2028<span aria-hidden="true">↗</span></a>
+    <a class="ak-text-link" href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Déposer ma candidature 2027-2028<span aria-hidden="true">↗</span></a>
   </div>
 </div></section>
 <footer class="ak-footer"><div class="ak-wrap">
@@ -432,14 +432,16 @@
 <!-- /wp:html -->
 
 <!-- wp:html -->
-<!-- menu-saison:start — corrige le libellé du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
+<!-- menu-saison:start — corrige le libellé et le lien du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
 <script>
 (() => {
   "use strict";
   const LABEL = "Pré-inscription 2027-2028";
+  const HREF = "https://www.academiedelaveau.com/pre-inscription-2027-2028/";
   function fix() {
     document.querySelectorAll("#smart-header .nav-cta, #mobile-menu-overlay .nav-cta, .nav-cta.m-cta").forEach((a) => {
       if (/pré-inscription/i.test(a.textContent) && a.textContent.trim() !== LABEL) a.textContent = LABEL;
+      if (/pre-inscription-2027-2028/.test(a.getAttribute("href") || "")) a.setAttribute("href", HREF);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix, { once: true });

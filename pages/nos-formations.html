@@ -1653,7 +1653,7 @@
 
 <section class="af-section af-apply" id="af-candidater" aria-labelledby="af-apply-title"><div class="af-wrap">
   <p class="af-kicker" data-reveal>Académie Delaveau · Sport-Études</p><h2 id="af-apply-title" data-reveal>Prêt à Rejoindre<br><em>l’Académie Delaveau ?</em></h2>
-  <div class="af-apply-bottom"><p data-reveal>Nos places sont limitées pour garantir un accompagnement d&#x27;excellence. Choisissez votre parcours (Section Excellence ou Section Espoir) et candidatez dès maintenant pour intégrer l&#x27;une des meilleures académies équestres de France.</p><div class="af-apply-actions" data-reveal><a class="af-btn af-btn-white" href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Candidater Maintenant<span aria-hidden="true">↗</span></a><a class="af-text-link" href="tel:+33616017066">+33 6 16 01 70 66</a></div></div>
+  <div class="af-apply-bottom"><p data-reveal>Nos places sont limitées pour garantir un accompagnement d&#x27;excellence. Choisissez votre parcours (Section Excellence ou Section Espoir) et candidatez dès maintenant pour intégrer l&#x27;une des meilleures académies équestres de France.</p><div class="af-apply-actions" data-reveal><a class="af-btn af-btn-white" href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Candidater Maintenant<span aria-hidden="true">↗</span></a><a class="af-text-link" href="tel:+33616017066">+33 6 16 01 70 66</a></div></div>
 </div></section>
 
 <footer class="af-footer"><div class="af-wrap">
@@ -1666,7 +1666,7 @@
   </div>
   <div class="af-footer-legal"><span>© <span data-year>2026</span> Académie Delaveau</span><a href="https://www.academiedelaveau.com/mentions-legales/">Mentions légales</a><a href="https://www.academiedelaveau.com/politique-de-confidentialite/">Confidentialité</a><button type="button" class="af-motion" data-motion aria-pressed="true" hidden><span aria-hidden="true"></span>Animations</button></div>
 </div></footer>
-<nav class="af-mobile-actions" aria-label="Votre formation" hidden><a href="#comparatif">Comparer les Sections<span aria-hidden="true">↗</span></a><a href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Candidater Maintenant<span aria-hidden="true">↗</span></a></nav>
+<nav class="af-mobile-actions" aria-label="Votre formation" hidden><a href="#comparatif">Comparer les Sections<span aria-hidden="true">↗</span></a><a href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Candidater Maintenant<span aria-hidden="true">↗</span></a></nav>
 </div>
 <script>
 /* Script autonome. Pas d'esperluette littérale : compatibilité avec le filtrage WordPress observé. */
@@ -1925,14 +1925,16 @@
 <!-- /wp:html -->
 
 <!-- wp:html -->
-<!-- menu-saison:start — corrige le libellé du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
+<!-- menu-saison:start — corrige le libellé et le lien du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
 <script>
 (() => {
   "use strict";
   const LABEL = "Pré-inscription 2027-2028";
+  const HREF = "https://www.academiedelaveau.com/pre-inscription-2027-2028/";
   function fix() {
     document.querySelectorAll("#smart-header .nav-cta, #mobile-menu-overlay .nav-cta, .nav-cta.m-cta").forEach((a) => {
       if (/pré-inscription/i.test(a.textContent) && a.textContent.trim() !== LABEL) a.textContent = LABEL;
+      if (/pre-inscription-2027-2028/.test(a.getAttribute("href") || "")) a.setAttribute("href", HREF);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix, { once: true });
