@@ -62,7 +62,8 @@ def main():
         print("Simulation : relancer avec --apply pour modifier.")
         return
     updated = content.replace(old, new)
-    call("POST", f"contact-forms/{form_id}", {"form": updated})
+    resp = call("POST", f"contact-forms/{form_id}", {"form": updated, "context": "save"})
+    print("Réponse :", {k: resp.get(k) for k in ("id", "status", "into", "invalid_fields", "config_errors", "message") if k in resp})
     check = call("GET", f"contact-forms/{form_id}")["properties"]["form"]
     if isinstance(check, dict):
         check = check.get("body") or check.get("content") or ""
