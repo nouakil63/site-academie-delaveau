@@ -21,14 +21,14 @@ Pour publier quand même en écrasant WordPress : Actions → **Publier sur Word
 - Créer ou supprimer une page se fait dans WordPress, puis relancer l'import.
 - Seul le contenu des pages est synchronisé (pas le titre, le modèle, les menus, les médias, les extensions).
 
-## Pop-up des pré-inscriptions
+## Composants partagés (`components/`)
 
-La pop-up est définie dans `components/popup-preinscription.html` et affichée uniquement sur l'accueil.
-Annonce plein écran (fenêtre modale) : elle apparaît après 5 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, et ne revient pas pendant 7 jours après fermeture (plus du tout après un clic sur « Je me pré-inscris »).
+Insérés dans les pages par `python3 scripts/popup.py` (à relancer après toute modification, puis commiter).
 
-- Modifier le texte : éditer `components/popup-preinscription.html`, puis `python3 scripts/popup.py`, puis commiter.
-- Changer les pages concernées : liste `PAGES` dans `scripts/popup.py`.
-- La retirer : `python3 scripts/popup.py --remove`, puis commiter.
+- **popup-preinscription** — annonce plein écran des pré-inscriptions, sur l'accueil uniquement. Apparaît après 5 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, ne revient pas pendant 7 jours après fermeture (plus du tout après un clic sur « Je me pré-inscris »).
+- **brevo-masque** — masque la pop-up newsletter Brevo sur toutes les pages publiées. Solution provisoire : Brevo continue de la charger, et elle reste visible sur les articles du blog. La vraie correction est de la désactiver dans Brevo, puis `python3 scripts/popup.py --remove brevo-masque`.
+
+Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts/popup.py`.
 
 ## Secrets requis (Settings → Secrets and variables → Actions)
 
