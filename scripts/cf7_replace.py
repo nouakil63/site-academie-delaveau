@@ -72,6 +72,14 @@ def main():
     form_id = matches[0]["id"]
     full = call("GET", f"contact-forms/{form_id}")
     if show:
+        print("\n===== config_errors =====")
+        print(json.dumps(full.get("config_errors"), ensure_ascii=False, indent=1))
+        for key in ("mail", "mail_2"):
+            m = full["properties"].get(key) or {}
+            print(f"\n===== {key} (réglages) =====")
+            for field in ("active", "recipient", "sender", "additional_headers", "use_html", "exclude_blank"):
+                v = m.get(field)
+                print(f"{field}: " + re.sub(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", "<adresse>", str(v)) + ("   <-- VIDE" if v in ("", None) and field in ("recipient", "sender") else ""))
         for p in ("form", "mail.subject", "mail.body", "mail_2.active", "mail_2.subject", "mail_2.body"):
             print(f"\n===== {p} =====")
             # Dépôt public : les journaux sont visibles de tous, on masque les adresses.
