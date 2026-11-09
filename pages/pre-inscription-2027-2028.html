@@ -276,8 +276,11 @@
 #adl-preinscription #bloc-responsable-legal > div[style] { font: 600 26px/1 var(--ak-display) !important; text-transform: uppercase; }
 #adl-preinscription .adl-file-trigger { padding: 26px; border: 1px dashed #aab5bd; border-radius: 0; font-size: 13px; }
 #adl-preinscription .adl-file-trigger:hover { border-color: var(--ak-blue); background: #f4f8fc; }
-#adl-preinscription .pre-video-alert { margin: 0 clamp(26px, 3.6vw, 52px) clamp(26px, 3.6vw, 52px); padding: 16px 18px; border-left: 3px solid #b42318; background: #fdecec; color: #7a1a12; font-size: 13px; line-height: 1.7; }
-#adl-preinscription .pre-video-alert a { color: inherit; font-weight: 700; text-decoration: underline; }
+#adl-preinscription .adl-file-container { display: none !important; }
+#adl-preinscription .pre-link-group { margin-top: 32px; }
+#adl-preinscription .pre-link-help { margin: -14px 0 0; font-size: 12px; line-height: 1.7; color: var(--ak-muted); }
+#adl-preinscription .pre-link-help a { color: var(--ak-blue); font-weight: 700; }
+#adl-preinscription .pre-link-error { margin-top: 8px; font-size: 12px; font-weight: 700; color: #b42318; }
 #adl-preinscription .adl-file-preview { border-radius: 0; background: var(--ak-paper); }
 #adl-preinscription .adl-actions { margin-top: 40px; gap: 26px; }
 #adl-preinscription .adl-btn { min-height: 58px; padding: 17px 30px; border-radius: 0; background: var(--ak-blue); color: #fff; font: 800 12px/1.4 var(--ak-body); letter-spacing: .04em; text-transform: none; }
@@ -307,7 +310,6 @@
     <p class="pre-help">Besoin d’un renseignement ? <a href="https://www.academiedelaveau.com/contactez-nous/">Contactez-nous ↗</a></p></div>
   <div class="pre-panel">
 [preinscription_academie]
-    <p class="pre-video-alert" id="pre-video-alert" role="alert" hidden></p>
   </div>
 </div></section>
 <footer class="ak-footer"><div class="ak-wrap">
@@ -422,40 +424,45 @@
   else init();
 })();
 
-/* Vidéo de candidature : le serveur refuse les envois de plus de ~8 Mo (limite PHP de l'hébergement).
-   On bloque avant l'envoi avec un message clair, au lieu d'une erreur après coup. */
+
+/* Vidéos de candidature : par lien uniquement (WeTransfer, Google Drive, YouTube…), plus d'envoi de fichier.
+   Le lien est ajouté à la fin de la réponse « motivations », champ que l'extension enregistre et transmet. */
 (() => {
   "use strict";
-  const MAX = 7 * 1024 * 1024;
+  const MARK = "\n\nLien vidéo : ";
   function init() {
-    const input = document.querySelector('#adl-preinscription input[name="palmares"]');
-    const alertBox = document.getElementById("pre-video-alert");
     const form = document.getElementById("adl-form-v3");
-    if (!input || !alertBox || !form) return;
-    const trigger = document.getElementById("upload-trigger");
-    if (trigger) trigger.childNodes.forEach((n) => { if (n.nodeType === 3 && /10 Mo conseillé/.test(n.textContent)) n.textContent = n.textContent.replace("10 Mo conseillé", "7 Mo maximum"); });
-    trigger?.querySelectorAll("*").forEach((el) => { if (el.children.length === 0 && /10 Mo conseillé/.test(el.textContent)) el.textContent = el.textContent.replace("10 Mo conseillé", "7 Mo maximum"); });
-    const show = (file) => {
-      const size = (file.size / 1024 / 1024).toFixed(1).replace(".", ",");
-      alertBox.innerHTML = "Votre vidéo fait " + size + " Mo : le maximum est de 7 Mo. Compressez-la, ou envoyez votre candidature sans vidéo puis transmettez un lien (YouTube, Google Drive, WeTransfer…) à <a href=\"mailto:contact@academiedelaveau.com?subject=Vid%C3%A9o%20de%20candidature%202027-2028\">contact@academiedelaveau.com</a>.";
-      alertBox.hidden = false;
-      alertBox.scrollIntoView({ block: "nearest" });
-    };
-    const tooBig = () => input.files && input.files[0] && input.files[0].size > MAX;
-    input.addEventListener("change", () => {
-      if (tooBig()) {
-        show(input.files[0]);
-        input.value = "";
-        document.querySelector("#adl-preinscription .adl-file-remove")?.click();
-      } else {
-        alertBox.hidden = true;
-      }
-    });
+    const file = form?.querySelector('input[name="palmares"]');
+    const box = form?.querySelector(".adl-file-container");
+    const motivations = form?.querySelector('textarea[name="motivations"]');
+    if (!form || !box || !motivations || document.getElementById("pre-video-link")) return;
+    if (file) { file.value = ""; file.disabled = true; }
+    const group = document.createElement("div");
+    group.className = "pre-link-group";
+    group.innerHTML =
+      '<div class="adl-group"><input type="url" id="pre-video-link" class="adl-input req-4" placeholder=" " inputmode="url" autocomplete="off" required>' +
+      '<label for="pre-video-link" class="adl-label">Lien de vos vidéos (WeTransfer, Google Drive, YouTube…)</label></div>' +
+      '<p class="pre-link-help" id="pre-link-help">Déposez vos vidéos de parcours ou de séances sur <a href="https://wetransfer.com/" target="_blank" rel="noopener noreferrer">WeTransfer</a> (option « Obtenir un lien »), puis collez le lien ici.</p>' +
+      '<p class="pre-link-error" id="pre-link-error" role="alert" hidden></p>';
+    box.after(group);
+    const input = group.querySelector("#pre-video-link");
+    const error = group.querySelector("#pre-link-error");
+    input.setAttribute("aria-describedby", "pre-link-help pre-link-error");
+    const valid = (v) => /^https?:\/\/\S+\.\S+/i.test(v.trim());
+    input.addEventListener("input", () => { error.hidden = true; input.setAttribute("aria-invalid", "false"); });
     form.addEventListener("submit", (event) => {
-      if (!tooBig()) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      show(input.files[0]);
+      const url = input.value.trim();
+      if (!valid(url)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        error.textContent = "Collez un lien valide vers vos vidéos (il commence par https://).";
+        error.hidden = false;
+        input.setAttribute("aria-invalid", "true");
+        input.focus();
+        return;
+      }
+      const base = motivations.value.split(MARK)[0];
+      motivations.value = base + MARK + url;
     }, true);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
