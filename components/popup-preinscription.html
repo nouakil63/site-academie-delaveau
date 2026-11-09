@@ -75,13 +75,13 @@
 </style>
 <dialog id="adl-pi-pop" tabindex="-1" aria-labelledby="adl-pi-title" aria-describedby="adl-pi-text" lang="fr">
   <div class="pi-lines" aria-hidden="true"></div>
-  <p class="pi-deco" aria-hidden="true">26</p>
+  <p class="pi-deco" aria-hidden="true">27</p>
   <div class="pi-inner">
-    <div class="pi-top"><p class="pi-kicker"><span aria-hidden="true"></span>Académie Delaveau · Saison 2026-2027</p><button type="button" class="pi-close" data-pi-close aria-label="Fermer">×</button></div>
+    <div class="pi-top"><p class="pi-kicker"><span aria-hidden="true"></span>Académie Delaveau · Saison 2027-2028</p><button type="button" class="pi-close" data-pi-close aria-label="Fermer">×</button></div>
     <div class="pi-main">
       <h2 id="adl-pi-title"><span><span>Les pré-</span></span><span><span>inscriptions</span></span><span><span><em>sont ouvertes</em></span></span></h2>
       <div class="pi-bottom">
-        <div><p class="pi-text" id="adl-pi-text">Élite, Espoir ou Le Lab : déposez votre candidature pour la saison 2026-2027 en quelques minutes.</p><ul class="pi-tracks" aria-label="Parcours"><li>Élite</li><li>Espoir</li><li>Le Lab</li></ul></div>
+        <div><p class="pi-text" id="adl-pi-text">Élite, Espoir ou Le Lab : déposez votre candidature pour la saison 2027-2028 en quelques minutes.</p><ul class="pi-tracks" aria-label="Parcours"><li>Élite</li><li>Espoir</li><li>Le Lab</li></ul></div>
         <div class="pi-actions"><a class="pi-cta" href="https://www.academiedelaveau.com/pre-inscription-2026-2027/" data-pi-go>Je me pré-inscris<span aria-hidden="true">↗</span></a><button type="button" class="pi-later" data-pi-close>Plus tard</button></div>
       </div>
     </div>
@@ -91,7 +91,7 @@
 /* Annonce plein écran des pré-inscriptions : affichée une fois, puis plus pendant 7 jours après fermeture. */
 (() => {
   "use strict";
-  const KEY = "adl-preinscription-popup";
+  const KEY = "adl-preinscription-2027-2028";
   const SNOOZE_DAYS = 7;
   function read() { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch (_) { return null; } }
   function write(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (_) {} }
