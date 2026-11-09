@@ -104,11 +104,19 @@
     "modified_gmt": "2026-11-09T10:59:35"
   },
   "pre-inscription-2026-2027": {
+    "id": 82714,
+    "titre": "Pré-inscription 2027-2028 (redirection)",
+    "statut": "publish",
+    "template": "",
+    "url": "https://www.academiedelaveau.com/pre-inscription-2026-2027/",
+    "modified_gmt": "2026-11-09T11:22:00"
+  },
+  "pre-inscription-2027-2028": {
     "id": 81867,
-    "titre": "Pré Inscription 2026 - 2027",
+    "titre": "Pré-inscription 2027-2028",
     "statut": "publish",
     "template": "elementor_canvas",
-    "url": "https://www.academiedelaveau.com/pre-inscription-2026-2027/",
-    "modified_gmt": "2026-11-09T10:48:45"
+    "url": "https://www.academiedelaveau.com/pre-inscription-2027-2028/",
+    "modified_gmt": "2026-11-09T11:21:54"
   }
 }
