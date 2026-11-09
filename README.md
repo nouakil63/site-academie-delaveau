@@ -37,6 +37,11 @@ Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts
 Actions → **Modifier un formulaire Contact Form 7** → Run workflow : titre du formulaire, texte à remplacer, nouveau texte.
 Laisser « appliquer » décoché pour une simulation (affiche le passage trouvé), puis relancer en cochant. Seul le gabarit du formulaire change (mails et réglages Stripe intacts).
 
+## Renommer une page (changer son adresse)
+
+Actions → **Renommer une page** → Run workflow : ancienne adresse, nouvelle adresse, nouveau titre.
+Avec « redirection » coché, une page à l'ancienne adresse renvoie vers la nouvelle (WordPress ne le fait pas pour les pages). Le dépôt est mis à jour automatiquement ; penser ensuite à remplacer les liens dans les pages.
+
 ## Secrets requis (Settings → Secrets and variables → Actions)
 
 - `WP_USER` : compte WordPress dédié (rôle Éditeur)
