@@ -9,12 +9,20 @@ on:
         default: "Inscriptions stage 2026"
       ancien:
         description: "Texte à remplacer"
-        required: true
+        required: false
       nouveau:
         description: "Nouveau texte"
+        required: false
+      propriete:
+        description: "Partie modifiée : form (gabarit), mail.body (email), mail_2.body (email 2)"
         required: true
+        default: "form"
       appliquer:
         description: "Appliquer la modification (sinon simulation)"
+        type: boolean
+        default: false
+      afficher:
+        description: "Afficher seulement le gabarit et les emails (ignore les autres champs)"
         type: boolean
         default: false
 
@@ -37,4 +45,10 @@ jobs:
           TITRE: ${{ inputs.titre }}
           ANCIEN: ${{ inputs.ancien }}
           NOUVEAU: ${{ inputs.nouveau }}
-        run: python3 scripts/cf7_replace.py "$TITRE" "$ANCIEN" "$NOUVEAU" ${{ inputs.appliquer && '--apply' || '' }}
+          PROP: ${{ inputs.propriete }}
+        run: |
+          if [ "${{ inputs.afficher }}" = "true" ]; then
+            python3 scripts/cf7_replace.py "$TITRE" --show
+          else
+            python3 scripts/cf7_replace.py "$TITRE" "$ANCIEN" "$NOUVEAU" --prop "$PROP" ${{ inputs.appliquer && '--apply' || '' }}
+          fi
