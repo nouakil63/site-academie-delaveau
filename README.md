@@ -24,7 +24,7 @@ Pour publier quand même en écrasant WordPress : Actions → **Publier sur Word
 ## Pop-up des pré-inscriptions
 
 La pop-up est définie dans `components/popup-preinscription.html` et affichée uniquement sur l'accueil.
-Elle apparaît après 6 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, et ne revient pas pendant 7 jours après fermeture.
+Annonce plein écran (fenêtre modale) : elle apparaît après 5 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, et ne revient pas pendant 7 jours après fermeture (plus du tout après un clic sur « Je me pré-inscris »).
 
 - Modifier le texte : éditer `components/popup-preinscription.html`, puis `python3 scripts/popup.py`, puis commiter.
 - Changer les pages concernées : liste `PAGES` dans `scripts/popup.py`.
