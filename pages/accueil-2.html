@@ -3592,3 +3592,131 @@
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<!-- popup-preinscription:start — généré depuis components/popup-preinscription.html, modifier ce fichier puis lancer scripts/popup.py -->
+<style>
+#adl-pi-pop {
+  --pi-blue: #0050a1;
+  --pi-dark: #101619;
+  --pi-ink: #202628;
+  --pi-muted: #596268;
+  --pi-line: #d9dfe3;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  left: auto;
+  top: auto;
+  z-index: 99990;
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  color: var(--pi-ink);
+  box-shadow: 0 30px 80px #10161940, 0 2px 8px #1016191f;
+  font: 400 14px/1.7 "Manrope", Arial, sans-serif;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+#adl-pi-pop:not([open]) { display: none; }
+#adl-pi-pop:focus { outline: none; }
+#adl-pi-pop *, #adl-pi-pop *::before, #adl-pi-pop *::after { box-sizing: border-box; }
+#adl-pi-pop .pi-media { position: relative; height: 170px; overflow: hidden; background: var(--pi-dark); }
+#adl-pi-pop .pi-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: saturate(.8); }
+#adl-pi-pop .pi-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #07111ecc, #07111e1a 70%); }
+#adl-pi-pop .pi-badge { position: absolute; left: 26px; bottom: 18px; z-index: 1; display: flex; align-items: center; gap: 10px; margin: 0; color: #fff; font: 800 10px/1.6 "Manrope", Arial, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+#adl-pi-pop .pi-badge span { width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px #ffffff26; }
+#adl-pi-pop .pi-body { padding: 26px 26px 24px; }
+#adl-pi-pop h2 { margin: 0; color: var(--pi-ink); font: 600 clamp(38px, 4vw, 46px)/.92 "Barlow Condensed", "Arial Narrow", Impact, sans-serif; letter-spacing: -.02em; text-transform: uppercase; }
+#adl-pi-pop h2 em { display: inline-block; margin-top: 4px; padding: 0 .08em .05em; background: var(--pi-blue); color: #fff; font-style: normal; }
+#adl-pi-pop p.pi-text { margin: 16px 0 0; font-size: 13px; line-height: 1.8; color: var(--pi-muted); }
+#adl-pi-pop .pi-tracks { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; }
+#adl-pi-pop .pi-tracks li { padding: 5px 10px; border: 1px solid var(--pi-line); font: 800 9px/1.6 "Manrope", Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--pi-blue); }
+#adl-pi-pop .pi-actions { display: flex; align-items: center; gap: 18px; margin-top: 22px; }
+#adl-pi-pop .pi-cta { display: inline-flex; flex: 1; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; padding: 16px 20px; background: var(--pi-blue); color: #fff; font: 800 12px/1.4 "Manrope", Arial, sans-serif; text-decoration: none; transition: background .25s; }
+#adl-pi-pop .pi-cta:hover { background: #003e7f; }
+#adl-pi-pop .pi-cta span { font-size: 22px; font-weight: 400; line-height: 1; transition: transform .3s; }
+#adl-pi-pop .pi-cta:hover span { transform: translate(3px, -3px); }
+#adl-pi-pop .pi-later { min-height: 44px; padding: 0; border: 0; background: none; color: var(--pi-muted); font: 700 12px/1.4 "Manrope", Arial, sans-serif; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+#adl-pi-pop .pi-later:hover { color: var(--pi-ink); }
+#adl-pi-pop .pi-close { position: absolute; top: 12px; right: 12px; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff80; border-radius: 0; background: #1016194d; color: #fff; font: 400 22px/1 Arial, sans-serif; cursor: pointer; backdrop-filter: blur(4px); transition: background .2s, color .2s; }
+#adl-pi-pop .pi-close:hover { background: #fff; color: var(--pi-ink); }
+#adl-pi-pop :is(a, button):focus-visible { outline: 3px solid var(--pi-blue); outline-offset: 3px; }
+#adl-pi-pop .pi-close:focus-visible { outline-color: #fff; }
+#adl-pi-pop.pi-in { animation: pi-in .55s cubic-bezier(.2, .7, .15, 1) both; }
+@keyframes pi-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) {
+  #adl-pi-pop { right: 0; left: 0; bottom: 0; width: 100%; max-height: 88vh; padding-bottom: env(safe-area-inset-bottom); }
+  #adl-pi-pop .pi-media { height: 130px; }
+  #adl-pi-pop .pi-body { padding: 22px 20px 20px; }
+  #adl-pi-pop h2 { font-size: 36px; }
+}
+@media (prefers-reduced-motion: reduce) { #adl-pi-pop.pi-in { animation: none; } }
+</style>
+<dialog id="adl-pi-pop" tabindex="-1" aria-labelledby="adl-pi-title" aria-describedby="adl-pi-text" lang="fr">
+  <div class="pi-media"><img src="https://www.academiedelaveau.com/wp-content/uploads/2025/11/Ame-a-cheval-3-scaled.jpg" alt="" loading="lazy" decoding="async"><p class="pi-badge"><span aria-hidden="true"></span>Saison 2026-2027</p></div>
+  <button type="button" class="pi-close" data-pi-close aria-label="Fermer">×</button>
+  <div class="pi-body">
+    <h2 id="adl-pi-title">Les pré-inscriptions<br><em>sont ouvertes</em></h2>
+    <p class="pi-text" id="adl-pi-text">Élite, Espoir ou Le Lab : déposez votre candidature pour la saison 2026-2027 en quelques minutes.</p>
+    <ul class="pi-tracks" aria-label="Parcours"><li>Élite</li><li>Espoir</li><li>Le Lab</li></ul>
+    <div class="pi-actions"><a class="pi-cta" href="https://www.academiedelaveau.com/pre-inscription-2026-2027/" data-pi-go>Je me pré-inscris<span aria-hidden="true">↗</span></a><button type="button" class="pi-later" data-pi-close>Plus tard</button></div>
+  </div>
+</dialog>
+<script>
+/* Annonce des pré-inscriptions : non bloquante, affichée une fois, puis plus pendant 7 jours après fermeture. */
+(() => {
+  "use strict";
+  const KEY = "adl-preinscription-popup";
+  const SNOOZE_DAYS = 7;
+  function read() { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch (_) { return null; } }
+  function write(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (_) {} }
+  function init() {
+    const pop = document.getElementById("adl-pi-pop");
+    if (!pop || pop.dataset.ready || typeof pop.show !== "function") return;
+    pop.dataset.ready = "1";
+    const state = read();
+    if (state && (state.done || Date.now() - state.closed < SNOOZE_DAYS * 864e5)) return;
+    let shown = false;
+    let opener = null;
+    const cookieBanner = () => {
+      const el = document.querySelector(".cookieadmin_law_container");
+      if (!el) return false;
+      const s = getComputedStyle(el);
+      return s.display !== "none" && s.visibility !== "hidden" && el.getBoundingClientRect().height > 0;
+    };
+    function open() {
+      if (shown) return;
+      if (cookieBanner()) { setTimeout(open, 2000); return; }
+      shown = true;
+      window.removeEventListener("scroll", onScroll);
+      opener = document.activeElement;
+      pop.show();
+      pop.classList.add("pi-in");
+      pop.focus({ preventScroll: true });
+    }
+    function close() {
+      pop.close();
+      write({ closed: Date.now() });
+      if (opener && opener.focus && document.contains(opener)) opener.focus({ preventScroll: true });
+    }
+    function onScroll() {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (max > 0 && scrollY / max > 0.35) open();
+    }
+    pop.querySelectorAll("[data-pi-close]").forEach((b) => b.addEventListener("click", close));
+    pop.querySelector("[data-pi-go]").addEventListener("click", () => write({ done: true, closed: Date.now() }));
+    pop.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); close(); } });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    setTimeout(open, 6000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
+  else init();
+})();
+</script>
+<!-- popup-preinscription:end -->
+<!-- /wp:html -->

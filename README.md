@@ -21,6 +21,15 @@ Pour publier quand même en écrasant WordPress : Actions → **Publier sur Word
 - Créer ou supprimer une page se fait dans WordPress, puis relancer l'import.
 - Seul le contenu des pages est synchronisé (pas le titre, le modèle, les menus, les médias, les extensions).
 
+## Pop-up des pré-inscriptions
+
+La pop-up est définie dans `components/popup-preinscription.html` et affichée uniquement sur l'accueil.
+Elle apparaît après 6 secondes ou 35 % de défilement, attend que le bandeau cookies soit fermé, et ne revient pas pendant 7 jours après fermeture.
+
+- Modifier le texte : éditer `components/popup-preinscription.html`, puis `python3 scripts/popup.py`, puis commiter.
+- Changer les pages concernées : liste `PAGES` dans `scripts/popup.py`.
+- La retirer : `python3 scripts/popup.py --remove`, puis commiter.
+
 ## Secrets requis (Settings → Secrets and variables → Actions)
 
 - `WP_USER` : compte WordPress dédié (rôle Éditeur)
