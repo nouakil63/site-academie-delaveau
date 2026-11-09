@@ -1,0 +1,61 @@
+name: Publier sur WordPress
+
+on:
+  push:
+    branches: [main]
+    paths: ["pages/*.html"]
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: "Slugs à publier, séparés par des espaces (ex : accueil-2 les-stages)"
+        required: true
+      force:
+        description: "Écraser même si la page a été modifiée dans WordPress"
+        type: boolean
+        default: false
+
+concurrency:
+  group: wordpress-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lister les pages modifiées
+        id: files
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT_PAGES: ${{ inputs.pages }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            files=$(for s in $INPUT_PAGES; do printf 'pages/%s.html ' "$s"; done)
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            files=$(git diff --name-only HEAD~1 HEAD -- 'pages/*.html' | tr '\n' ' ')
+          else
+            files=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- 'pages/*.html' | tr '\n' ' ')
+          fi
+          echo "Pages : $files"
+          echo "list=$files" >> "$GITHUB_OUTPUT"
+
+      - name: Publier
+        if: steps.files.outputs.list != ''
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: python3 scripts/wp_sync.py push ${{ steps.files.outputs.list }} ${{ inputs.force && '--force' || '' }}
+
+      - name: Enregistrer les dates de publication
+        if: always() && steps.files.outputs.list != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/manifest.json
+          git diff --cached --quiet || (git commit -m "Met à jour manifest.json après publication" && git push)

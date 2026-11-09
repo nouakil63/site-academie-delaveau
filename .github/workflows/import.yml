@@ -1,0 +1,30 @@
+name: Importer depuis WordPress
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: wordpress-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Importer les pages
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: python3 scripts/wp_sync.py import
+
+      - name: Commiter
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages
+          git diff --cached --quiet && echo "Aucun changement." || (git commit -m "Import des pages depuis WordPress" && git push)
