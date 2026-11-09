@@ -22,7 +22,7 @@ PAGES_DIR = ROOT / "pages"
 
 def published_pages():
     manifest = json.loads((PAGES_DIR / "manifest.json").read_text(encoding="utf-8"))
-    return sorted(slug for slug, meta in manifest.items() if meta.get("statut") == "publish")
+    return sorted(slug for slug, meta in manifest.items() if meta.get("statut") == "publish" and "(redirection)" not in meta.get("titre", ""))
 
 
 # Pages où chaque composant apparaît.

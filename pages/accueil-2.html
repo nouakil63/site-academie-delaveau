@@ -3193,7 +3193,7 @@
               Remplissez le dossier de candidature en ligne avec la présentation
               de votre parcours équestre et scolaire.
             </p>
-            <a href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Accéder à la candidature →</a>
+            <a href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Accéder à la candidature →</a>
           </div>
         </details>
       </div>
@@ -3236,7 +3236,7 @@
       <div class="ad3-contact-bottom">
         <p>
           Votre projet est déjà prêt ?
-          <a href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Candidater ↗</a>
+          <a href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Candidater ↗</a>
         </p>
         <a class="ad3-phone" href="tel:+33616017066"
           >06 16 01 70 66 <span aria-hidden="true">↗</span></a
@@ -3278,7 +3278,7 @@
           <a href="#adl-equipe">L’équipe</a
           ><a href="#adl-experience">Le cadre de vie</a
           ><a href="#adl-faq">Vos questions</a
-          ><a href="https://www.academiedelaveau.com/pre-inscription-2026-2027/">Candidater</a>
+          ><a href="https://www.academiedelaveau.com/pre-inscription-2027-2028/">Candidater</a>
         </nav>
         <div>
           <h2>Contact</h2>
@@ -3678,7 +3678,7 @@
       <h2 id="adl-pi-title"><span><span>Les pré-</span></span><span><span>inscriptions</span></span><span><span><em>sont ouvertes</em></span></span></h2>
       <div class="pi-bottom">
         <div><p class="pi-text" id="adl-pi-text">Élite, Espoir ou Le Lab : déposez votre candidature pour la saison 2027-2028 en quelques minutes.</p><ul class="pi-tracks" aria-label="Parcours"><li>Élite</li><li>Espoir</li><li>Le Lab</li></ul></div>
-        <div class="pi-actions"><a class="pi-cta" href="https://www.academiedelaveau.com/pre-inscription-2026-2027/" data-pi-go>Je me pré-inscris<span aria-hidden="true">↗</span></a><button type="button" class="pi-later" data-pi-close>Plus tard</button></div>
+        <div class="pi-actions"><a class="pi-cta" href="https://www.academiedelaveau.com/pre-inscription-2027-2028/" data-pi-go>Je me pré-inscris<span aria-hidden="true">↗</span></a><button type="button" class="pi-later" data-pi-close>Plus tard</button></div>
       </div>
     </div>
   </div>
@@ -3749,14 +3749,16 @@
 <!-- /wp:html -->
 
 <!-- wp:html -->
-<!-- menu-saison:start — corrige le libellé du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
+<!-- menu-saison:start — corrige le libellé et le lien du bouton « Pré-inscription » du menu (extension adl_smart_menu). Généré depuis components/menu-saison.html via scripts/popup.py. -->
 <script>
 (() => {
   "use strict";
   const LABEL = "Pré-inscription 2027-2028";
+  const HREF = "https://www.academiedelaveau.com/pre-inscription-2027-2028/";
   function fix() {
     document.querySelectorAll("#smart-header .nav-cta, #mobile-menu-overlay .nav-cta, .nav-cta.m-cta").forEach((a) => {
       if (/pré-inscription/i.test(a.textContent) && a.textContent.trim() !== LABEL) a.textContent = LABEL;
+      if (/pre-inscription-2026-2027/.test(a.getAttribute("href") || "")) a.setAttribute("href", HREF);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix, { once: true });
