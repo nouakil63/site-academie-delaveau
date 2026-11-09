@@ -1,0 +1,49 @@
+name: Renommer une page
+
+on:
+  workflow_dispatch:
+    inputs:
+      ancien:
+        description: "Adresse actuelle (slug), ex : pre-inscription-2026-2027"
+        required: true
+      nouveau:
+        description: "Nouvelle adresse (slug), ex : pre-inscription-2027-2028"
+        required: true
+      titre:
+        description: "Nouveau titre de la page"
+        required: true
+      redirection:
+        description: "Laisser une page de redirection à l'ancienne adresse"
+        type: boolean
+        default: true
+
+concurrency:
+  group: wordpress-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Renommer
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          ANCIEN: ${{ inputs.ancien }}
+          NOUVEAU: ${{ inputs.nouveau }}
+          TITRE: ${{ inputs.titre }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 scripts/rename_page.py "$ANCIEN" "$NOUVEAU" "$TITRE" ${{ inputs.redirection && '--redirection' || '' }}
+      - name: Commiter
+        run: |
+          git add -A pages
+          git diff --cached --quiet && echo "Aucun changement." || (git commit -m "Renomme la page $ANCIEN en $NOUVEAU" && git push)
+        env:
+          ANCIEN: ${{ inputs.ancien }}
+          NOUVEAU: ${{ inputs.nouveau }}
