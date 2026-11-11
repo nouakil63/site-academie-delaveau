@@ -32,6 +32,16 @@ Insérés dans les pages par `python3 scripts/popup.py` (à relancer après tout
 
 Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts/popup.py`.
 
+## Formulaire de pré-inscription
+
+La page `pre-inscription-2027-2028` contient son propre formulaire en 4 étapes (HTML, style et script dans la page ; il remplace l'extension `[preinscription_academie]`).
+
+- Les boutons restent toujours actifs : s'il manque une information, la liste des champs à compléter s'affiche sous les boutons.
+- L'envoi passe par le formulaire Contact Form 7 « Pré-inscription 2027-2028 », présent sur la page mais invisible. Chaque demande est enregistrée dans **admin WordPress → Flamingo → Messages entrants** (les demandes classées comme spam par reCAPTCHA sont dans l'onglet *Indésirables*) et envoyée par email.
+- Ce formulaire CF7 est défini dans `forms/pre-inscription-2027-2028.json` (gabarit, email, réglages Flamingo). Il est créé ou mis à jour automatiquement par l'Action **Publier sur WordPress** quand ce fichier change, avant la publication des pages : si la création échoue, la page n'est pas publiée. Le destinataire et l'expéditeur de l'email se règlent dans WordPress (onglet *E-mail* du formulaire) et ne sont jamais écrasés ; à la création, ils sont repris du formulaire « Inscriptions stage 2026 ».
+- Ajouter un champ : l'ajouter dans la page **et** dans `forms/pre-inscription-2027-2028.json` (même `name`), dans le même commit.
+- Ne pas modifier le gabarit de ce formulaire dans WordPress : il serait remplacé à la prochaine publication.
+
 ## Modifier un formulaire Contact Form 7
 
 Actions → **Modifier un formulaire Contact Form 7** → Run workflow : titre du formulaire, texte à remplacer, nouveau texte.

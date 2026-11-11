@@ -3,7 +3,7 @@ name: Publier sur WordPress
 on:
   push:
     branches: [main]
-    paths: ["pages/*.html"]
+    paths: ["pages/*.html", "forms/*.json"]
   workflow_dispatch:
     inputs:
       pages:
@@ -44,6 +44,28 @@ jobs:
           fi
           echo "Pages : $files"
           echo "list=$files" >> "$GITHUB_OUTPUT"
+
+      - name: Lister les formulaires modifiés
+        id: forms
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            forms=$(git diff --name-only --diff-filter=d HEAD~1 HEAD -- 'forms/*.json' | tr '\n' ' ')
+          else
+            forms=$(git diff --name-only --diff-filter=d "$BEFORE" "$GITHUB_SHA" -- 'forms/*.json' | tr '\n' ' ')
+          fi
+          echo "Formulaires : $forms"
+          echo "list=$forms" >> "$GITHUB_OUTPUT"
+
+      # Avant les pages : une page qui utilise un formulaire n'est publiée que si ce formulaire existe.
+      - name: Créer ou mettre à jour les formulaires Contact Form 7
+        if: steps.forms.outputs.list != ''
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: python3 scripts/cf7_form.py ${{ steps.forms.outputs.list }} --apply
 
       - name: Publier
         if: steps.files.outputs.list != ''
