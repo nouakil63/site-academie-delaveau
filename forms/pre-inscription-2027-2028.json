@@ -25,7 +25,7 @@
     "<p>Club / structure actuelle [text* club_actuel]</p>",
     "<p>Objectifs sportifs [textarea* objectifs]</p>",
     "<p>Motivations [textarea* motivations]</p>",
-    "<p>Lien des vidéos [url* lien_video]</p>",
+    "<p>Lien des vidéos [url lien_video]</p>",
     "<p>Newsletter [text newsletter]</p>",
     "<p>[acceptance rgpd] J'accepte que mes données soient traitées pour ma candidature. [/acceptance]</p>",
     "<p>[submit \"Envoyer\"]</p>"
