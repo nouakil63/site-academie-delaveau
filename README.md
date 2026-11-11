@@ -7,6 +7,7 @@ Le HTML des pages de https://www.academiedelaveau.com est versionné ici et publ
 - `pages/<slug>.html` : contenu brut de chaque page WordPress.
 - `pages/manifest.json` : identifiant WordPress de chaque page et date de dernière modification connue. Ne pas modifier à la main.
 - À chaque push sur `main` qui modifie un `pages/*.html`, l'Action **Publier sur WordPress** envoie les pages modifiées (et seulement elles).
+- Avant d'envoyer, elle vérifie les `<script>` des pages (`scripts/check_inline_scripts.py`) : à l'affichage, WordPress prend tout « < » pour le début d'une balise et y remplace les « & » par `&#038;`, ce qui casse le script. Dans un script de page, écrire `b > a` plutôt que `a < b`.
 
 ## Règle importante
 
