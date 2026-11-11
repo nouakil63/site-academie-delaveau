@@ -39,10 +39,8 @@ La page `pre-inscription-2027-2028` contient son propre formulaire en 4 étapes 
 
 - Les boutons restent toujours actifs : s'il manque une information, la liste des champs à compléter s'affiche sous les boutons.
 - L'envoi passe par l'extension **Pré-inscriptions Académie Delaveau** (voir plus bas) : chaque demande arrive dans **admin WordPress → Pré-inscriptions** et par email.
-- Tant que cette extension n'est pas installée, la page se replie automatiquement sur le formulaire Contact Form 7 « Pré-inscription 2027-2028 », présent sur la page mais invisible (demandes dans Flamingo et par email).
-- Ce formulaire CF7 est défini dans `forms/pre-inscription-2027-2028.json` (gabarit, email, réglages Flamingo). Il est créé ou mis à jour automatiquement par l'Action **Publier sur WordPress** quand ce fichier change, avant la publication des pages : si la création échoue, la page n'est pas publiée. Le destinataire et l'expéditeur de l'email se règlent dans WordPress (onglet *E-mail* du formulaire) et ne sont jamais écrasés ; à la création, ils sont repris du formulaire « Inscriptions stage 2026 ».
-- Ajouter un champ : l'ajouter dans la page **et** dans `forms/pre-inscription-2027-2028.json` (même `name`), dans le même commit.
-- Ne pas modifier le gabarit de ce formulaire dans WordPress : il serait remplacé à la prochaine publication.
+- Ajouter un champ : l'ajouter dans la page avec un `name`, et dans la liste `fields()` de l'extension (`wordpress/adl-preinscriptions/adl-preinscriptions.php`) pour qu'il soit enregistré, puis mettre l'extension à jour dans WordPress.
+- Les candidatures reçues avant l'installation de l'extension (11 novembre 2026) sont dans **Flamingo → Messages entrants** (formulaire « Pré-inscription 2027-2028 ») et dans les emails ; ce formulaire Contact Form 7 n'est plus utilisé.
 
 ## Extension « Pré-inscriptions Académie Delaveau » (`wordpress/adl-preinscriptions/`)
 

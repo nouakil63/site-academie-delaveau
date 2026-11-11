@@ -468,9 +468,6 @@
         </form>
       </div>
     </div>
-    <!-- Formulaire Contact Form 7 « Pré-inscription 2027-2028 » (géré depuis forms/pre-inscription-2027-2028.json) :
-         invisible, il fournit l’identifiant et les champs techniques de CF7 ; l’envoi se fait par le script plus bas. -->
-    <div class="pre-transport" hidden>[contact-form-7 title="Pré-inscription 2027-2028"]</div>
   </div>
 </div></section>
 <footer class="ak-footer"><div class="ak-wrap">
@@ -588,10 +585,9 @@
 
 /* Formulaire de pré-inscription (remplace l'extension « preinscription_academie »).
    - Quatre étapes. Les boutons restent toujours actifs : s'il manque une information, la liste des
-     champs à compléter s'affiche au-dessus des boutons et le premier champ concerné est mis en évidence.
-   - L'envoi passe par l'API de Contact Form 7, formulaire « Pré-inscription 2027-2028 » (rendu invisible
-     dans .pre-transport, défini dans forms/pre-inscription-2027-2028.json) : chaque demande est enregistrée
-     dans Flamingo (admin WordPress → Flamingo → Messages entrants) et envoyée par email. */
+     champs à compléter s'affiche sous les boutons et le premier champ concerné est mis en évidence.
+   - L'envoi passe par l'extension « Pré-inscriptions Académie Delaveau » (POST /wp-json/adl/v1/preinscription,
+     dossier wordpress/adl-preinscriptions) : chaque demande arrive dans l'admin (menu Pré-inscriptions) et par email. */
 (() => {
   "use strict";
   const NIVEAUX = {
@@ -602,7 +598,7 @@
   const BOUTON = "Envoyer ma candidature";
   const POURQUOI = { elite: "Pourquoi l’Académie Delaveau ?", espoir: "Pourquoi l’Académie Espoir ?", lab: "Pourquoi Le Lab ?" };
   const CONTACT = ' Si le problème persiste, appelez-nous au <a href="tel:+33616017066">06 16 01 70 66</a> ou écrivez à <a href="mailto:contact@academiedelaveau.com">contact@academiedelaveau.com</a>.';
-  const CHAMPS_CF7 = ["_wpcf7", "_wpcf7_version", "_wpcf7_locale", "_wpcf7_unit_tag", "_wpcf7_container_post"];
+  const RECAPTCHA = "6Lf6oXopAAAAAOV1gnL0GkZGLOBV46_TKMr_CTOK"; // clé publique reCAPTCHA v3 du site (sa clé secrète est vérifiée par l'extension)
 
   function init() {
     const form = document.getElementById("adl-form-v3");
@@ -749,27 +745,31 @@
       if (render(current, true)) goTo(current + 1);
     }
 
-    /* Envoi : d'abord à l'extension « Pré-inscriptions Académie Delaveau » (POST /wp-json/adl/v1/preinscription).
-       Tant qu'elle n'est pas installée (route inconnue), repli sur le formulaire Contact Form 7 caché. */
-    function captcha(name) {
-      const config = window.wpcf7_recaptcha || {};
-      const g = window.grecaptcha;
-      const action = name || (config.actions && config.actions.contactform) || "contactform";
-      if (!config.sitekey || !g || typeof g.ready !== "function") return Promise.resolve("");
+    /* Jeton reCAPTCHA v3 récent ; le script de Google est chargé à la demande s'il n'est pas déjà sur la page. */
+    function loadRecaptcha() {
+      if (window.grecaptcha && typeof window.grecaptcha.ready === "function") return Promise.resolve(window.grecaptcha);
+      return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = "https://www.google.com/recaptcha/api.js?render=" + RECAPTCHA;
+        script.async = true;
+        script.onload = () => resolve(window.grecaptcha || null);
+        script.onerror = () => resolve(null);
+        document.head.appendChild(script);
+      });
+    }
+    async function captcha() {
+      const g = await loadRecaptcha();
+      if (!g || typeof g.ready !== "function") return "";
       return new Promise((resolve) => {
         const timer = setTimeout(() => resolve(""), 10000);
         const done = (token) => { clearTimeout(timer); resolve(typeof token === "string" ? token : ""); };
-        try { g.ready(() => g.execute(config.sitekey, { action }).then(done, () => done(""))); } catch (_) { done(""); }
+        try { g.ready(() => g.execute(RECAPTCHA, { action: "preinscription" }).then(done, () => done(""))); } catch (_) { done(""); }
       });
     }
     function route(path) {
-      const api = (window.wpcf7 && window.wpcf7.api) || {};
-      const base = api.root || "/wp-json/";
+      const link = document.querySelector('link[rel="https://api.w.org/"]');
+      const base = (link && link.href) || "/wp-json/";
       return base.indexOf("?") === -1 ? base.replace(/\/?$/, "/") + path : base + path;
-    }
-    function endpoint(id) {
-      const api = (window.wpcf7 && window.wpcf7.api) || {};
-      return route((api.namespace || "contact-form-7/v1").replace(/^\/|\/$/g, "") + "/contact-forms/" + encodeURIComponent(id) + "/feedback");
     }
     async function request(url, data) {
       const controller = typeof AbortController === "function" ? new AbortController() : null;
@@ -826,18 +826,6 @@
       showTop();
       done.focus({ preventScroll: true });
     }
-    function handle(answer) {
-      const status = answer.status;
-      // mail_failed : la demande est enregistrée dans Flamingo, seul l'email de notification a échoué.
-      if (status === "mail_sent" || status === "mail_failed") return success();
-      if (status === "validation_failed" && Array.isArray(answer.invalid_fields)) {
-        if (showServerErrors(answer.invalid_fields.map((item) => [item.field, item.message]))) return;
-        console.error("Pré-inscription : champs refusés par Contact Form 7", answer.invalid_fields);
-      }
-      if (status === "acceptance_missing") { form.querySelector("#rgpd").checked = false; goTo(steps.length); render(steps.length, true); return; }
-      if (status === "spam") return fail("Votre candidature a été bloquée par notre filtre anti-spam. Patientez quelques instants, puis réessayez.");
-      fail((answer.message ? String(answer.message) + " " : "L’envoi n’a pas abouti. ") + "Réessayez dans quelques instants.");
-    }
     async function send() {
       if (sending) return;
       fixLink();
@@ -851,26 +839,14 @@
       try {
         const data = new FormData(form);
         data.set("source", window.location.href);
-        data.set("recaptcha", await captcha("preinscription"));
-        const own = await request(route("adl/v1/preinscription"), data);
-        if (!(own.status === 404 && own.answer && own.answer.code === "rest_no_route")) {
-          handleOwn(own);
-          return;
-        }
-        const transport = document.querySelector(".pre-transport form");
-        const technical = (name) => { const input = transport && transport.querySelector('input[name="' + name + '"]'); return input ? input.value : ""; };
-        if (!technical("_wpcf7")) {
-          console.error("Pré-inscription : ni l’extension « Pré-inscriptions » ni le formulaire Contact Form 7 ne sont disponibles.");
+        data.set("recaptcha", await captcha());
+        const result = await request(route("adl/v1/preinscription"), data);
+        if (result.status === 404 && result.answer && result.answer.code === "rest_no_route") {
+          console.error("Pré-inscription : l’extension « Pré-inscriptions Académie Delaveau » n’est pas active.");
           fail("Le formulaire est momentanément indisponible.");
           return;
         }
-        const cf7 = new FormData(form);
-        CHAMPS_CF7.forEach((name) => cf7.set(name, technical(name)));
-        cf7.set("_wpcf7_posted_data_hash", "");
-        cf7.set("_wpcf7_recaptcha_response", await captcha());
-        const result = await request(endpoint(technical("_wpcf7")), cf7);
-        if (!result.answer || typeof result.answer.status !== "string") throw serverError(result);
-        handle(result.answer);
+        handleOwn(result);
       } catch (error) {
         console.error("Pré-inscription : échec de l’envoi", error);
         fail(error && error.server ? "Le site n’a pas pu enregistrer votre candidature. Réessayez dans quelques instants." : "L’envoi n’a pas abouti. Vérifiez votre connexion internet, puis réessayez.");
