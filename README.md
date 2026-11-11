@@ -38,10 +38,21 @@ Pages concernées par chaque composant : dictionnaire `COMPONENTS` dans `scripts
 La page `pre-inscription-2027-2028` contient son propre formulaire en 4 étapes (HTML, style et script dans la page ; il remplace l'extension `[preinscription_academie]`).
 
 - Les boutons restent toujours actifs : s'il manque une information, la liste des champs à compléter s'affiche sous les boutons.
-- L'envoi passe par le formulaire Contact Form 7 « Pré-inscription 2027-2028 », présent sur la page mais invisible. Chaque demande est enregistrée dans **admin WordPress → Flamingo → Messages entrants** (les demandes classées comme spam par reCAPTCHA sont dans l'onglet *Indésirables*) et envoyée par email.
+- L'envoi passe par l'extension **Pré-inscriptions Académie Delaveau** (voir plus bas) : chaque demande arrive dans **admin WordPress → Pré-inscriptions** et par email.
+- Tant que cette extension n'est pas installée, la page se replie automatiquement sur le formulaire Contact Form 7 « Pré-inscription 2027-2028 », présent sur la page mais invisible (demandes dans Flamingo et par email).
 - Ce formulaire CF7 est défini dans `forms/pre-inscription-2027-2028.json` (gabarit, email, réglages Flamingo). Il est créé ou mis à jour automatiquement par l'Action **Publier sur WordPress** quand ce fichier change, avant la publication des pages : si la création échoue, la page n'est pas publiée. Le destinataire et l'expéditeur de l'email se règlent dans WordPress (onglet *E-mail* du formulaire) et ne sont jamais écrasés ; à la création, ils sont repris du formulaire « Inscriptions stage 2026 ».
 - Ajouter un champ : l'ajouter dans la page **et** dans `forms/pre-inscription-2027-2028.json` (même `name`), dans le même commit.
 - Ne pas modifier le gabarit de ce formulaire dans WordPress : il serait remplacé à la prochaine publication.
+
+## Extension « Pré-inscriptions Académie Delaveau » (`wordpress/adl-preinscriptions/`)
+
+Reçoit les candidatures envoyées par la page (`POST /wp-json/adl/v1/preinscription`) et les range dans l'admin.
+
+- **Installer ou mettre à jour** (une fois, par un administrateur ; le compte utilisé par GitHub ne peut pas installer d'extension) : compresser le dossier `wordpress/adl-preinscriptions` en `adl-preinscriptions.zip`, puis admin WordPress → Extensions → Ajouter → Téléverser une extension → Activer. Pour une mise à jour, WordPress propose de remplacer la version installée.
+- **Candidatures** : menu *Pré-inscriptions*. Liste (parcours, contact, âge, niveau, date), filtre par parcours, fiche complète, bouton *Exporter en CSV (Excel)*. Visible des administrateurs et des éditeurs uniquement.
+- **Email** à chaque candidature, avec réponse directe au candidat. Destinataires : *Pré-inscriptions → Réglages* (à l'activation, repris du formulaire CF7 de pré-inscription).
+- **Anti-spam** : champ piège invisible, reCAPTCHA (clé déjà enregistrée dans Contact Form 7), 30 candidatures maximum par heure et par connexion. Rien n'est jeté : une demande douteuse est marquée « À vérifier » (sans email si le piège à robots a été rempli).
+- Désactiver ou supprimer l'extension ne supprime aucune candidature.
 
 ## Modifier un formulaire Contact Form 7
 
