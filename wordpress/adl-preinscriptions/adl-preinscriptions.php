@@ -42,7 +42,6 @@ final class ADL_Preinscriptions {
 			'responsable_email'   => array( 'Responsable légal : email', 'email', 200 ),
 			'niveau_competition'  => array( 'Niveau de compétition', 'text', 100 ),
 			'niveau_galop'        => array( 'Niveau Galop', 'text', 50 ),
-			'cheval_propre'       => array( 'A un cheval', 'text', 50 ),
 			'chevaux'             => array( 'Chevaux', 'textarea', 5000 ),
 			'meilleurs_resultats' => array( 'Meilleurs résultats', 'textarea', 5000 ),
 			'experience_equestre' => array( 'Expérience équestre', 'textarea', 5000 ),

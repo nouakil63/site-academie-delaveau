@@ -313,8 +313,13 @@
 #adl-preinscription .adl-tag { margin-bottom: 10px; font: 800 9px/1.6 var(--ak-body); letter-spacing: .13em; color: var(--ak-blue); }
 #adl-preinscription .adl-card-title { font: 600 32px/1 var(--ak-display); text-transform: uppercase; color: var(--ak-ink); }
 #adl-preinscription .adl-card-content > span[style] { color: var(--ak-muted) !important; font-size: 12px !important; line-height: 1.7; }
-#adl-preinscription .adl-input, #adl-preinscription .adl-textarea, #adl-preinscription .adl-select { padding: 16px 0 12px; font: 500 15px/1.4 var(--ak-body); color: var(--ak-ink); border-bottom-color: var(--ak-line); }
+/* Champs soulignés (comme le menu déroulant) : on retire le cadre gris que le thème impose aux champs texte.
+   Ligne #8a949b : contraste de 3:1 avec le blanc, le minimum pour qu’un champ reste repérable. */
+#adl-preinscription .adl-input, #adl-preinscription .adl-textarea, #adl-preinscription .adl-select { padding: 16px 0 12px; font: 500 15px/1.4 var(--ak-body); color: var(--ak-ink); border: 0; border-bottom: 1px solid #8a949b; border-radius: 0; background: transparent; box-shadow: none; }
 #adl-preinscription .adl-input:focus, #adl-preinscription .adl-textarea:focus, #adl-preinscription .adl-select:focus { border-bottom-color: var(--ak-blue); box-shadow: 0 1px 0 var(--ak-blue); }
+/* Dans un champ, le soulignement bleu (2 px) signale la saisie : pas de cadre noir par-dessus l’étiquette. Boutons, cartes et cases gardent le leur. */
+#adl-preinscription .pre-form :is(.adl-input, .adl-textarea, .adl-select):focus-visible { outline: none; }
+#adl-preinscription .pre-form :is(.adl-input, .adl-textarea) { -webkit-appearance: none; appearance: none; } /* pas de rendu natif (ombre intérieure sur iPhone) */
 #adl-preinscription .adl-label { font-size: 14px; color: var(--ak-muted); }
 #adl-preinscription .adl-input:focus ~ .adl-label, #adl-preinscription .adl-input:not(:placeholder-shown) ~ .adl-label, #adl-preinscription .adl-textarea:focus ~ .adl-label, #adl-preinscription .adl-textarea:not(:placeholder-shown) ~ .adl-label, #adl-preinscription .adl-select:focus ~ .adl-label, #adl-preinscription .adl-select:valid ~ .adl-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ak-blue); }
 #adl-preinscription #bloc-responsable-legal > div[style] { font: 600 26px/1 var(--ak-display) !important; text-transform: uppercase; }
@@ -328,7 +333,7 @@
 #adl-preinscription .adl-card-radio input:focus-visible + .adl-card-content { outline: 3px solid var(--ak-blue); outline-offset: 4px; }
 #adl-preinscription .adl-step h3:focus, #adl-preinscription .pre-success:focus { outline: none; }
 /* Date de naissance : vrai champ date, même hauteur que les autres ; vide et hors saisie, il garde son libellé à l’intérieur comme avant. */
-#adl-preinscription .pre-form input[type="date"].adl-input { height: 51px; }
+#adl-preinscription .pre-form input[type="date"].adl-input { height: 50px; }
 #adl-preinscription .pre-form input[type="date"].adl-input::-webkit-date-and-time-value { text-align: left; }
 @supports selector(::-webkit-datetime-edit) {
   #adl-preinscription .pre-form .adl-group.is-empty input[type="date"]:not(:focus)::-webkit-datetime-edit,
@@ -430,13 +435,7 @@
               <div class="adl-group"><textarea name="meilleurs_resultats" id="elite-resultats" class="adl-textarea" placeholder=" " data-label="Meilleurs résultats récents" required></textarea><label for="elite-resultats" class="adl-label">Meilleurs résultats récents</label></div>
             </fieldset>
             <fieldset id="bloc-espoir" class="pre-block" hidden disabled>
-              <div class="adl-row">
-                <div class="adl-group"><select name="niveau_galop" id="espoir-galop" class="adl-select" data-label="Niveau Galop" required><option value="" disabled selected></option><option>Galop 4</option><option>Galop 5</option><option>Galop 6</option><option>Galop 7+</option></select><label for="espoir-galop" class="adl-label">Niveau Galop</label></div>
-                <div class="adl-group"><select name="cheval_propre" id="trigger-cheval" class="adl-select" data-label="Avez-vous un cheval ?" required><option value="" disabled selected></option><option>Non</option><option>Oui, propriétaire</option><option>Demi-pension</option></select><label for="trigger-cheval" class="adl-label">Avez-vous un cheval ?</label></div>
-              </div>
-              <fieldset id="cheval-detail" class="pre-block" hidden disabled>
-                <div class="adl-group"><textarea name="chevaux" id="espoir-chevaux" class="adl-textarea" placeholder=" " data-label="Informations sur le cheval"></textarea><label for="espoir-chevaux" class="adl-label">Informations sur le cheval</label></div>
-              </fieldset>
+              <div class="adl-group"><select name="niveau_galop" id="espoir-galop" class="adl-select" data-label="Niveau Galop" required><option value="" disabled selected></option><option>Galop 1</option><option>Galop 2</option><option>Galop 3</option><option>Galop 4</option><option>Galop 5</option><option>Galop 6</option><option>Galop 7</option></select><label for="espoir-galop" class="adl-label">Niveau Galop</label></div>
               <div class="adl-group"><textarea name="experience_equestre" id="espoir-experience" class="adl-textarea" placeholder=" " data-label="Votre expérience globale"></textarea><label for="espoir-experience" class="adl-label">Votre expérience globale</label></div>
             </fieldset>
             <fieldset id="bloc-lab" class="pre-block" hidden disabled>
@@ -600,8 +599,8 @@
     espoir: ["6ème", "5ème", "4ème", "3ème", "Seconde", "Première", "Terminale"],
     lab: ["Bac obtenu", "Bac +1", "Bac +2", "Études supérieures", "En activité professionnelle", "Autre situation"],
   };
-  const AVEC_CHEVAL = ["Oui, propriétaire", "Demi-pension"];
   const BOUTON = "Envoyer ma candidature";
+  const POURQUOI = { elite: "Pourquoi l’Académie Delaveau ?", espoir: "Pourquoi l’Académie Espoir ?", lab: "Pourquoi Le Lab ?" };
   const CONTACT = ' Si le problème persiste, appelez-nous au <a href="tel:+33616017066">06 16 01 70 66</a> ou écrivez à <a href="mailto:contact@academiedelaveau.com">contact@academiedelaveau.com</a>.';
   const CHAMPS_CF7 = ["_wpcf7", "_wpcf7_version", "_wpcf7_locale", "_wpcf7_unit_tag", "_wpcf7_container_post"];
 
@@ -614,7 +613,6 @@
     const counter = document.getElementById("step-num");
     const steps = Array.from(form.querySelectorAll(".adl-step"));
     const level = form.querySelector("#niveau_scolaire");
-    const horse = form.querySelector("#trigger-cheval");
     const link = form.querySelector("#pre-video-link");
     const submit = form.querySelector("#btn-submit");
     const sendError = form.querySelector(".pre-send-error");
@@ -646,9 +644,11 @@
       if (list.includes(previous)) level.value = previous; else level.selectedIndex = 0;
       setBlock(form.querySelector("#bloc-responsable-legal"), key !== "lab");
       ["elite", "espoir", "lab"].forEach((k) => setBlock(form.querySelector("#bloc-" + k), k === key));
-      applyHorse();
+      // La question de motivation nomme le parcours choisi.
+      const why = POURQUOI[key] || "Pourquoi l’Académie Delaveau / Le Lab ?";
+      form.querySelector('label[for="motivations"]').textContent = why;
+      form.querySelector("#motivations").dataset.label = why;
     }
-    function applyHorse() { setBlock(form.querySelector("#cheval-detail"), AVEC_CHEVAL.includes(horse.value)); }
 
     /* Lien vidéo : garde l'adresse seule et ajoute https:// si elle a été collée sans. */
     function fixLink() {
@@ -892,7 +892,6 @@
     });
     form.addEventListener("change", (event) => {
       if (event.target.name === "formation") applyParcours();
-      if (event.target === horse) applyHorse();
       if (event.target === link) fixLink();
     });
     const refresh = (event) => {
