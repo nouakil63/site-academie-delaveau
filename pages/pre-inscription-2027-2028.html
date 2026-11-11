@@ -430,7 +430,7 @@
             <h3 tabindex="-1">Expérience</h3>
             <p class="adl-subtitle">Votre niveau équestre et votre cheval.</p>
             <fieldset id="bloc-elite" class="pre-block" hidden disabled>
-              <div class="adl-group"><select name="niveau_competition" id="elite-niveau" class="adl-select" data-label="Niveau compétition" required><option value="" disabled selected></option><option>Amateur</option><option>Pro</option><option>Poney Elite</option></select><label for="elite-niveau" class="adl-label">Niveau compétition</label></div>
+              <div class="adl-group"><select name="niveau_competition" id="elite-niveau" class="adl-select" data-label="Niveau compétition" required><option value="" disabled selected></option><option>Club</option><option>Amateur</option></select><label for="elite-niveau" class="adl-label">Niveau compétition</label></div>
               <div class="adl-group"><textarea name="chevaux" id="elite-chevaux" class="adl-textarea" placeholder=" " data-label="Vos chevaux" required></textarea><label for="elite-chevaux" class="adl-label">Vos chevaux (nom, âge, niveau)</label></div>
               <div class="adl-group"><textarea name="meilleurs_resultats" id="elite-resultats" class="adl-textarea" placeholder=" " data-label="Meilleurs résultats récents" required></textarea><label for="elite-resultats" class="adl-label">Meilleurs résultats récents</label></div>
             </fieldset>
@@ -439,7 +439,7 @@
               <div class="adl-group"><textarea name="experience_equestre" id="espoir-experience" class="adl-textarea" placeholder=" " data-label="Votre expérience globale"></textarea><label for="espoir-experience" class="adl-label">Votre expérience globale</label></div>
             </fieldset>
             <fieldset id="bloc-lab" class="pre-block" hidden disabled>
-              <div class="adl-group"><select name="niveau_competition" id="lab-niveau" class="adl-select" data-label="Niveau de compétition actuel" required><option value="" disabled selected></option><option>Club</option><option>Amateur</option><option>Pro</option><option>Jeunes Chevaux</option></select><label for="lab-niveau" class="adl-label">Niveau de compétition actuel</label></div>
+              <div class="adl-group"><select name="niveau_competition" id="lab-niveau" class="adl-select" data-label="Niveau de compétition actuel" required><option value="" disabled selected></option><option>Club</option><option>Amateur</option></select><label for="lab-niveau" class="adl-label">Niveau de compétition actuel</label></div>
               <div class="adl-group"><textarea name="chevaux" id="lab-chevaux" class="adl-textarea" placeholder=" " data-label="Votre cheval" required></textarea><label for="lab-chevaux" class="adl-label">Votre cheval (nom, âge, niveau, objectifs)</label></div>
               <div class="adl-group"><textarea name="disponibilites" id="lab-disponibilites" class="adl-textarea" placeholder=" " data-label="Vos disponibilités" required></textarea><label for="lab-disponibilites" class="adl-label">Vos disponibilités (études, travail, saison sportive)</label></div>
             </fieldset>
@@ -454,7 +454,7 @@
             <div class="adl-group"><textarea name="objectifs" id="objectifs" class="adl-textarea" placeholder=" " style="min-height:100px" data-label="Vos objectifs sportifs" required></textarea><label for="objectifs" class="adl-label">Vos objectifs sportifs</label></div>
             <div class="adl-group"><textarea name="motivations" id="motivations" class="adl-textarea" placeholder=" " style="min-height:100px" data-label="Pourquoi l’Académie Delaveau / Le Lab ?" required></textarea><label for="motivations" class="adl-label">Pourquoi l'Académie Delaveau / Le Lab ?</label></div>
             <div class="pre-link-group">
-              <div class="adl-group"><input type="url" name="lien_video" id="pre-video-link" class="adl-input" placeholder=" " inputmode="url" autocomplete="off" aria-describedby="pre-link-help" data-label="Lien de vos vidéos" required><label for="pre-video-link" class="adl-label">Lien de vos vidéos (WeTransfer, Google Drive, YouTube…)</label></div>
+              <div class="adl-group"><input type="url" name="lien_video" id="pre-video-link" class="adl-input" placeholder=" " inputmode="url" autocomplete="off" aria-describedby="pre-link-help" data-label="Lien de vos vidéos"><label for="pre-video-link" class="adl-label">Lien de vos vidéos, facultatif (WeTransfer, Google Drive, YouTube…)</label></div>
               <p class="pre-link-help" id="pre-link-help">Déposez vos vidéos de parcours ou de séances sur <a href="https://wetransfer.com/" target="_blank" rel="noopener noreferrer">WeTransfer</a> (option « Obtenir un lien »), puis collez le lien ici.</p>
             </div>
             <div class="adl-check"><input type="checkbox" name="rgpd" id="rgpd" value="1" data-label="Accord pour le traitement de vos données (case à cocher)" required><label for="rgpd">J'accepte que mes données soient traitées pour ma candidature.</label></div>
@@ -661,12 +661,14 @@
 
     function issue(el) {
       if (serverErrors.has(el.name)) return serverErrors.get(el.name);
-      if (!el.required) return null;
       const label = labelOf(el);
-      if (el.type === "radio") return form.querySelector('input[name="' + el.name + '"]:checked') ? null : label;
-      if (el.type === "checkbox") return el.checked ? null : label;
+      if (el.type === "radio") return !el.required || form.querySelector('input[name="' + el.name + '"]:checked') ? null : label;
+      if (el.type === "checkbox") return !el.required || el.checked ? null : label;
       const value = el.value.trim();
-      if (!value) return el.validity.badInput ? label + " (date incomplète)" : label;
+      if (!value) {
+        if (el.validity.badInput) return label + " (date incomplète)";
+        return el.required ? label : null; // champ facultatif laissé vide
+      }
       if (el.type === "email" && (!el.validity.valid || !/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value))) return label + " (adresse invalide)";
       // Comparaison écrite avec « plus grand que » : dans une page, WordPress prend tout signe « inférieur » pour le début d’une balise (voir scripts/check_inline_scripts.py).
       if (el.type === "tel" && 6 > value.replace(/\D/g, "").length) return label + " (numéro incomplet)";
