@@ -322,6 +322,7 @@
 #adl-preinscription .pre-link-help { margin: -14px 0 0; font-size: 12px; line-height: 1.7; color: var(--ak-muted); }
 #adl-preinscription .pre-link-help a { color: var(--ak-blue); font-weight: 700; }
 #adl-preinscription .pre-form fieldset.pre-block { margin: 0; padding: 0; border: 0; min-width: 0; }
+#adl-preinscription .pre-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 /* Un fieldset ne laisse pas « fusionner » la marge de son dernier champ avec celle des boutons : on la retire pour garder l’espacement d’origine. */
 #adl-preinscription .pre-form #bloc-responsable-legal > .adl-group:last-child { margin-bottom: 0; }
 #adl-preinscription .adl-card-radio input:focus-visible + .adl-card-content { outline: 3px solid var(--ak-blue); outline-offset: 4px; }
@@ -459,6 +460,7 @@
             </div>
             <div class="adl-check"><input type="checkbox" name="rgpd" id="rgpd" value="1" data-label="Accord pour le traitement de vos données (case à cocher)" required><label for="rgpd">J'accepte que mes données soient traitées pour ma candidature.</label></div>
             <div class="adl-check"><input type="checkbox" name="newsletter" id="nl" value="Oui"><label for="nl">Je souhaite recevoir les actualités.</label></div>
+            <div class="pre-hp" aria-hidden="true"><label for="adl_site">Ne pas remplir ce champ</label><input type="text" name="adl_site" id="adl_site" tabindex="-1" autocomplete="off"></div>
             <div class="adl-actions"><button type="button" class="adl-btn adl-btn-back" data-back>Retour</button><button type="submit" class="adl-btn" id="btn-submit">Envoyer ma candidature</button></div>
             <p class="pre-step-error" role="alert" hidden></p>
             <p class="pre-send-error" role="alert" hidden></p>
@@ -745,11 +747,12 @@
       if (render(current, true)) goTo(current + 1);
     }
 
-    /* Envoi au formulaire Contact Form 7 caché (identifiant et champs techniques), avec un jeton reCAPTCHA récent. */
-    function captcha() {
+    /* Envoi : d'abord à l'extension « Pré-inscriptions Académie Delaveau » (POST /wp-json/adl/v1/preinscription).
+       Tant qu'elle n'est pas installée (route inconnue), repli sur le formulaire Contact Form 7 caché. */
+    function captcha(name) {
       const config = window.wpcf7_recaptcha || {};
       const g = window.grecaptcha;
-      const action = (config.actions && config.actions.contactform) || "contactform";
+      const action = name || (config.actions && config.actions.contactform) || "contactform";
       if (!config.sitekey || !g || typeof g.ready !== "function") return Promise.resolve("");
       return new Promise((resolve) => {
         const timer = setTimeout(() => resolve(""), 10000);
@@ -757,27 +760,51 @@
         try { g.ready(() => g.execute(config.sitekey, { action }).then(done, () => done(""))); } catch (_) { done(""); }
       });
     }
-    function endpoint(id) {
+    function route(path) {
       const api = (window.wpcf7 && window.wpcf7.api) || {};
       const base = api.root || "/wp-json/";
-      const path = (api.namespace || "contact-form-7/v1").replace(/^\/|\/$/g, "") + "/contact-forms/" + encodeURIComponent(id) + "/feedback";
       return base.indexOf("?") === -1 ? base.replace(/\/?$/, "/") + path : base + path;
     }
-    async function post(url, data) {
+    function endpoint(id) {
+      const api = (window.wpcf7 && window.wpcf7.api) || {};
+      return route((api.namespace || "contact-form-7/v1").replace(/^\/|\/$/g, "") + "/contact-forms/" + encodeURIComponent(id) + "/feedback");
+    }
+    async function request(url, data) {
       const controller = typeof AbortController === "function" ? new AbortController() : null;
       const timer = controller ? setTimeout(() => controller.abort(), 45000) : 0;
       try {
         const response = await fetch(url, { method: "POST", body: data, headers: { Accept: "application/json" }, credentials: "same-origin", signal: controller ? controller.signal : undefined });
-        const answer = await response.json().catch(() => null);
-        if (!answer || typeof answer.status !== "string") {
-          const error = new Error("réponse inattendue (HTTP " + response.status + (answer && answer.code ? ", " + answer.code : "") + ")");
-          error.server = true;
-          throw error;
-        }
-        return answer;
+        return { status: response.status, answer: await response.json().catch(() => null) };
       } finally {
         clearTimeout(timer);
       }
+    }
+    function serverError(result) {
+      const error = new Error("réponse inattendue (HTTP " + result.status + (result.answer && result.answer.code ? ", " + result.answer.code : "") + ")");
+      error.server = true;
+      return error;
+    }
+    /* Marque les champs refusés par le serveur et revient à la première étape concernée. Renvoie false si aucun champ n'est reconnu. */
+    function showServerErrors(list) {
+      let first = 0;
+      list.forEach(([field, message]) => {
+        const el = Array.from(form.elements).find((e) => e.name === field && isOn(e));
+        if (!el) return;
+        serverErrors.set(el.name, labelOf(el) + " : " + String(message || "à vérifier"));
+        if (!first || first > stepOf(el)) first = stepOf(el);
+      });
+      if (!first) return false;
+      goTo(first);
+      render(first, true);
+      return true;
+    }
+    function handleOwn(result) {
+      const answer = result.answer || {};
+      if (answer.ok) return success();
+      const errors = answer.data && answer.data.errors;
+      if (errors && showServerErrors(Object.entries(errors))) return;
+      if (result.status === 429) return fail(String(answer.message || "Trop d’envois depuis cette connexion. Réessayez dans une heure."));
+      throw serverError(result);
     }
 
     function fail(text) {
@@ -802,14 +829,7 @@
       // mail_failed : la demande est enregistrée dans Flamingo, seul l'email de notification a échoué.
       if (status === "mail_sent" || status === "mail_failed") return success();
       if (status === "validation_failed" && Array.isArray(answer.invalid_fields)) {
-        let first = 0;
-        answer.invalid_fields.forEach((item) => {
-          const el = Array.from(form.elements).find((e) => e.name === item.field && isOn(e));
-          if (!el) return;
-          serverErrors.set(el.name, labelOf(el) + " : " + String(item.message || "à vérifier"));
-          if (!first || stepOf(el) < first) first = stepOf(el);
-        });
-        if (first) { goTo(first); render(first, true); return; }
+        if (showServerErrors(answer.invalid_fields.map((item) => [item.field, item.message]))) return;
         console.error("Pré-inscription : champs refusés par Contact Form 7", answer.invalid_fields);
       }
       if (status === "acceptance_missing") { form.querySelector("#rgpd").checked = false; goTo(steps.length); render(steps.length, true); return; }
@@ -819,15 +839,8 @@
     async function send() {
       if (sending) return;
       fixLink();
-      for (let n = 1; n <= steps.length; n++) {
+      for (let n = 1; steps.length >= n; n++) {
         if (!render(n, false)) { goTo(n); render(n, true); return; }
-      }
-      const transport = document.querySelector(".pre-transport form");
-      const technical = (name) => { const input = transport && transport.querySelector('input[name="' + name + '"]'); return input ? input.value : ""; };
-      if (!technical("_wpcf7")) {
-        console.error("Pré-inscription : le formulaire Contact Form 7 « Pré-inscription 2027-2028 » est absent de la page.");
-        fail("Le formulaire est momentanément indisponible.");
-        return;
       }
       sending = true;
       submit.disabled = true;
@@ -835,10 +848,27 @@
       sendError.hidden = true;
       try {
         const data = new FormData(form);
-        CHAMPS_CF7.forEach((name) => data.set(name, technical(name)));
-        data.set("_wpcf7_posted_data_hash", "");
-        data.set("_wpcf7_recaptcha_response", await captcha());
-        handle(await post(endpoint(technical("_wpcf7")), data));
+        data.set("source", window.location.href);
+        data.set("recaptcha", await captcha("preinscription"));
+        const own = await request(route("adl/v1/preinscription"), data);
+        if (!(own.status === 404 && own.answer && own.answer.code === "rest_no_route")) {
+          handleOwn(own);
+          return;
+        }
+        const transport = document.querySelector(".pre-transport form");
+        const technical = (name) => { const input = transport && transport.querySelector('input[name="' + name + '"]'); return input ? input.value : ""; };
+        if (!technical("_wpcf7")) {
+          console.error("Pré-inscription : ni l’extension « Pré-inscriptions » ni le formulaire Contact Form 7 ne sont disponibles.");
+          fail("Le formulaire est momentanément indisponible.");
+          return;
+        }
+        const cf7 = new FormData(form);
+        CHAMPS_CF7.forEach((name) => cf7.set(name, technical(name)));
+        cf7.set("_wpcf7_posted_data_hash", "");
+        cf7.set("_wpcf7_recaptcha_response", await captcha());
+        const result = await request(endpoint(technical("_wpcf7")), cf7);
+        if (!result.answer || typeof result.answer.status !== "string") throw serverError(result);
+        handle(result.answer);
       } catch (error) {
         console.error("Pré-inscription : échec de l’envoi", error);
         fail(error && error.server ? "Le site n’a pas pu enregistrer votre candidature. Réessayez dans quelques instants." : "L’envoi n’a pas abouti. Vérifiez votre connexion internet, puis réessayez.");
