@@ -45,6 +45,11 @@ jobs:
           echo "Pages : $files"
           echo "list=$files" >> "$GITHUB_OUTPUT"
 
+      # WordPress altère les « & » qui suivent un « < » dans les scripts des pages : on refuse de publier une page cassée.
+      - name: Vérifier les scripts des pages
+        if: steps.files.outputs.list != ''
+        run: python3 scripts/check_inline_scripts.py ${{ steps.files.outputs.list }}
+
       - name: Lister les formulaires modifiés
         id: forms
         if: github.event_name == 'push'

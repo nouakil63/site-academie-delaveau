@@ -666,7 +666,8 @@
       const value = el.value.trim();
       if (!value) return el.validity.badInput ? label + " (date incomplète)" : label;
       if (el.type === "email" && (!el.validity.valid || !/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value))) return label + " (adresse invalide)";
-      if (el.type === "tel" && value.replace(/\D/g, "").length < 6) return label + " (numéro incomplet)";
+      // Comparaison écrite avec « plus grand que » : dans une page, WordPress prend tout signe « inférieur » pour le début d’une balise (voir scripts/check_inline_scripts.py).
+      if (el.type === "tel" && 6 > value.replace(/\D/g, "").length) return label + " (numéro incomplet)";
       if (el.type === "url" && !/^https?:\/\/[^\s/]+\.[^\s]{2,}/i.test(value)) return label + " (lien invalide)";
       if (el.type === "date" && !el.validity.valid) return label + " (date invalide)";
       return null;
