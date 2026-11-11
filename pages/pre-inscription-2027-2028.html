@@ -254,9 +254,53 @@
 #adl-preinscription .pre-help { margin-top: 26px; font-size: 12px; color: var(--ak-muted); }
 #adl-preinscription .pre-help a { color: var(--ak-blue); font-weight: 700; }
 #adl-preinscription .pre-panel { background: #fff; border: 1px solid var(--ak-line); min-width: 0; }
-/* Formulaire de l’extension : mêmes champs, nouvelle mise en forme. */
+/* Formulaire de pré-inscription (propre à cette page, remplace l’extension « preinscription_academie »).
+   Socle repris à l’identique de l’extension ; :where() lui garde sa faible priorité d’origine,
+   pour que les règles « #adl-preinscription … » plus bas et les styles du thème s’appliquent comme avant. */
+:where(#adl-preinscription) .adl-wrapper * { box-sizing: border-box; outline: none; }
+:where(#adl-preinscription) .adl-wrapper { font-family: var(--font-body); color: var(--adl-text); background: var(--adl-bg); min-height: 100vh; display: flex; flex-wrap: wrap; width: 100%; }
+:where(#adl-preinscription) .adl-form-container { flex: 1.4; min-width: 350px; background: #fff; padding: 4rem 6rem; position: relative; overflow-y: auto; max-height: 100vh; }
+:where(#adl-preinscription) .adl-steps-indicator { position: absolute; top: 4rem; right: 6rem; font-size: 0.9rem; color: var(--adl-gray); }
+:where(#adl-preinscription) .adl-steps-indicator span { color: var(--adl-dark); font-weight: 700; font-size: 1.2rem; }
+:where(#adl-preinscription) .adl-step { display: none; animation: adlFadeIn 0.5s ease forwards; }
+:where(#adl-preinscription) .adl-step.active { display: block; }
+@keyframes adlFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+:where(#adl-preinscription) .adl-step h3 { font-family: var(--font-title); font-size: 2.2rem; color: var(--adl-dark); margin-bottom: 0.5rem; margin-top: 0; }
+:where(#adl-preinscription) .adl-subtitle { color: var(--adl-gray); margin-bottom: 2.5rem; font-weight: 300; }
+:where(#adl-preinscription) .adl-grid-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+:where(#adl-preinscription) .adl-card-radio { position: relative; }
+:where(#adl-preinscription) .adl-card-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+:where(#adl-preinscription) .adl-card-content { border: 1px solid var(--adl-line); padding: 2rem; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+:where(#adl-preinscription) .adl-card-radio input:checked + .adl-card-content { border-color: var(--adl-dark); background: #F8FAFC; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+:where(#adl-preinscription) .adl-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--adl-gold); font-weight: 700; margin-bottom: 1rem; }
+:where(#adl-preinscription) .adl-card-title { font-family: var(--font-title); font-size: 1.5rem; color: var(--adl-dark); margin-bottom: 0.5rem; display: block; }
+:where(#adl-preinscription) .adl-group { position: relative; margin-bottom: 1.8rem; }
+:where(#adl-preinscription) .adl-row { display: flex; gap: 2rem; }
+:where(#adl-preinscription) .adl-row .adl-group { flex: 1; }
+:where(#adl-preinscription) .adl-input, :where(#adl-preinscription) .adl-textarea, :where(#adl-preinscription) .adl-select { width: 100%; padding: 1rem 0; font-family: var(--font-body); font-size: 1rem; color: var(--adl-dark); background: transparent; border: none; border-bottom: 1px solid var(--adl-line); border-radius: 0; transition: 0.3s; }
+:where(#adl-preinscription) .adl-input:focus, :where(#adl-preinscription) .adl-textarea:focus, :where(#adl-preinscription) .adl-select:focus { border-bottom-color: var(--adl-dark); }
+:where(#adl-preinscription) .adl-label { position: absolute; top: 1rem; left: 0; font-size: 1rem; color: var(--adl-gray); pointer-events: none; transition: 0.3s ease all; }
+:where(#adl-preinscription) .adl-input:focus ~ .adl-label, :where(#adl-preinscription) .adl-input:not(:placeholder-shown) ~ .adl-label,
+:where(#adl-preinscription) .adl-textarea:focus ~ .adl-label, :where(#adl-preinscription) .adl-textarea:not(:placeholder-shown) ~ .adl-label,
+:where(#adl-preinscription) .adl-select:focus ~ .adl-label, :where(#adl-preinscription) .adl-select:valid ~ .adl-label { top: -12px; font-size: 0.75rem; color: var(--adl-gold); font-weight: 600; }
+:where(#adl-preinscription) .adl-textarea { resize: none; min-height: 80px; }
+:where(#adl-preinscription) .adl-actions { margin-top: 3rem; display: flex; align-items: center; gap: 2rem; }
+:where(#adl-preinscription) .adl-btn { padding: 1rem 2.5rem; background: var(--adl-dark); color: #fff; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border: none; cursor: pointer; transition: 0.3s; }
+:where(#adl-preinscription) .adl-btn:hover { background: #1a2b4a; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+:where(#adl-preinscription) .adl-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+:where(#adl-preinscription) .adl-btn-back { background: transparent; color: var(--adl-gray); padding: 0; }
+:where(#adl-preinscription) .adl-btn-back:hover { color: var(--adl-dark); background: transparent; transform: none; box-shadow: none; }
+:where(#adl-preinscription) .adl-check { display: flex; gap: 1rem; margin-top: 1.2rem; }
+:where(#adl-preinscription) .adl-check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--adl-dark); cursor: pointer; }
+:where(#adl-preinscription) .adl-check label { font-size: 0.9rem; color: var(--adl-gray); cursor: pointer; }
+@media (max-width: 900px) {
+  :where(#adl-preinscription) .adl-wrapper { flex-direction: column; }
+  :where(#adl-preinscription) .adl-form-container { padding: 2rem 1.5rem; flex: none; }
+  :where(#adl-preinscription) .adl-row { flex-direction: column; gap: 0; }
+  :where(#adl-preinscription) .adl-steps-indicator { top: 2rem; right: 1.5rem; }
+}
+/* Mise en forme de la page par-dessus le socle. */
 #adl-preinscription .adl-wrapper { display: block; min-height: 0; background: #fff; color: var(--ak-ink); font-family: var(--ak-body); }
-#adl-preinscription .adl-visual { display: none; }
 #adl-preinscription .adl-form-container { min-width: 0; max-height: none; overflow: visible; padding: clamp(26px, 3.6vw, 52px); background: #fff; }
 #adl-preinscription .adl-steps-indicator { top: clamp(26px, 3.6vw, 52px); right: clamp(26px, 3.6vw, 52px); font: 500 14px/1 var(--ak-display); color: var(--ak-muted); }
 #adl-preinscription .adl-steps-indicator span { font: 600 26px/1 var(--ak-display); color: var(--ak-blue); }
@@ -274,18 +318,40 @@
 #adl-preinscription .adl-label { font-size: 14px; color: var(--ak-muted); }
 #adl-preinscription .adl-input:focus ~ .adl-label, #adl-preinscription .adl-input:not(:placeholder-shown) ~ .adl-label, #adl-preinscription .adl-textarea:focus ~ .adl-label, #adl-preinscription .adl-textarea:not(:placeholder-shown) ~ .adl-label, #adl-preinscription .adl-select:focus ~ .adl-label, #adl-preinscription .adl-select:valid ~ .adl-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ak-blue); }
 #adl-preinscription #bloc-responsable-legal > div[style] { font: 600 26px/1 var(--ak-display) !important; text-transform: uppercase; }
-#adl-preinscription .adl-file-trigger { padding: 26px; border: 1px dashed #aab5bd; border-radius: 0; font-size: 13px; }
-#adl-preinscription .adl-file-trigger:hover { border-color: var(--ak-blue); background: #f4f8fc; }
-#adl-preinscription .adl-file-container { display: none !important; }
 #adl-preinscription .pre-link-group { margin-top: 32px; }
 #adl-preinscription .pre-link-help { margin: -14px 0 0; font-size: 12px; line-height: 1.7; color: var(--ak-muted); }
 #adl-preinscription .pre-link-help a { color: var(--ak-blue); font-weight: 700; }
-#adl-preinscription .pre-link-error { margin-top: 8px; font-size: 12px; font-weight: 700; color: #b42318; }
-#adl-preinscription .adl-file-preview { border-radius: 0; background: var(--ak-paper); }
+#adl-preinscription .pre-form fieldset.pre-block { margin: 0; padding: 0; border: 0; min-width: 0; }
+/* Un fieldset ne laisse pas « fusionner » la marge de son dernier champ avec celle des boutons : on la retire pour garder l’espacement d’origine. */
+#adl-preinscription .pre-form #bloc-responsable-legal > .adl-group:last-child { margin-bottom: 0; }
+#adl-preinscription .adl-card-radio input:focus-visible + .adl-card-content { outline: 3px solid var(--ak-blue); outline-offset: 4px; }
+#adl-preinscription .adl-step h3:focus, #adl-preinscription .pre-success:focus { outline: none; }
+/* Date de naissance : vrai champ date, même hauteur que les autres ; vide et hors saisie, il garde son libellé à l’intérieur comme avant. */
+#adl-preinscription .pre-form input[type="date"].adl-input { height: 51px; }
+#adl-preinscription .pre-form input[type="date"].adl-input::-webkit-date-and-time-value { text-align: left; }
+@supports selector(::-webkit-datetime-edit) {
+  #adl-preinscription .pre-form .adl-group.is-empty input[type="date"]:not(:focus)::-webkit-datetime-edit,
+  #adl-preinscription .pre-form .adl-group.is-empty input[type="date"]:not(:focus)::-webkit-calendar-picker-indicator { opacity: 0; }
+  #adl-preinscription .pre-form .adl-group.is-empty input[type="date"]:not(:focus) ~ .adl-label { top: 16px; font-size: 14px; font-weight: 400; letter-spacing: normal; text-transform: none; color: var(--ak-muted); }
+  #adl-preinscription .pre-form .adl-group.is-empty.is-invalid input[type="date"]:not(:focus) ~ .adl-label { color: #b42318; }
+}
+/* Champ à compléter : signalé en rouge, avec la liste au-dessus des boutons. */
+#adl-preinscription .pre-form .is-invalid :is(.adl-input, .adl-textarea, .adl-select) { border-color: #b42318; }
+#adl-preinscription .pre-form .adl-group.is-invalid .adl-label, #adl-preinscription .pre-form .adl-check.is-invalid label { color: #b42318; }
+#adl-preinscription .pre-form .adl-grid-choices.is-invalid .adl-card-content { border-color: #b42318; }
+#adl-preinscription .pre-form .adl-check.is-invalid input { outline: 2px solid #b42318; outline-offset: 2px; }
+#adl-preinscription .pre-step-error, #adl-preinscription .pre-send-error { margin: 24px 0 0; padding: 14px 16px; border-left: 3px solid #b42318; background: #fdf3f2; color: #b42318; font-size: 13px; font-weight: 700; line-height: 1.6; }
+#adl-preinscription .pre-send-error a { color: inherit; text-decoration: underline; }
+/* Candidature envoyée. */
+#adl-preinscription .pre-success { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 420px; text-align: center; }
+#adl-preinscription .pre-success-mark { margin-bottom: 18px; font-size: 56px; line-height: 1; color: var(--ak-blue); }
+#adl-preinscription .pre-success h3 { margin: 0 0 16px; font: 600 clamp(38px, 3.6vw, 56px)/.95 var(--ak-display); text-transform: uppercase; letter-spacing: -.02em; color: var(--ak-ink); }
+#adl-preinscription .pre-success p { font-size: 14px; line-height: 1.8; color: var(--ak-muted); }
+#adl-preinscription .pre-success a { margin-top: 28px; color: var(--ak-blue); font-size: 13px; font-weight: 700; }
 #adl-preinscription .adl-actions { margin-top: 40px; gap: 26px; }
 #adl-preinscription .adl-btn { min-height: 58px; padding: 17px 30px; border-radius: 0; background: var(--ak-blue); color: #fff; font: 800 12px/1.4 var(--ak-body); letter-spacing: .04em; text-transform: none; }
 #adl-preinscription .adl-btn:hover { background: var(--ak-blue-dark); transform: none; box-shadow: none; }
-#adl-preinscription .adl-btn:disabled { background: #9aa5ad; opacity: 1; }
+#adl-preinscription .adl-btn:disabled { background: #9aa5ad; opacity: 1; cursor: progress; }
 #adl-preinscription .adl-btn-back, #adl-preinscription .adl-btn-back:hover { min-height: 48px; padding: 0; background: none; color: var(--ak-muted); }
 #adl-preinscription .adl-btn-back:hover { color: var(--ak-blue); }
 #adl-preinscription .adl-check input { accent-color: var(--ak-blue); }
@@ -309,7 +375,101 @@
     <ol class="pre-steps"><li><span>01</span><p><strong>Votre parcours</strong>Élite, Espoir ou Le Lab.</p></li><li><span>02</span><p><strong>Le cavalier</strong>Vos informations personnelles.</p></li><li><span>03</span><p><strong>Expérience</strong>Votre niveau équestre et votre cheval.</p></li><li><span>04</span><p><strong>Finalisation</strong>Vos motivations et vos vidéos.</p></li></ol>
     <p class="pre-help">Besoin d’un renseignement ? <a href="https://www.academiedelaveau.com/contactez-nous/">Contactez-nous ↗</a></p></div>
   <div class="pre-panel">
-[preinscription_academie]
+    <div class="adl-wrapper">
+      <div class="adl-form-container">
+        <div class="adl-steps-indicator" aria-hidden="true"><span id="step-num">1</span> / 4</div>
+        <form id="adl-form-v3" class="pre-form" novalidate>
+
+          <div class="adl-step active" id="step-1">
+            <h3 tabindex="-1">Votre Parcours</h3>
+            <p class="adl-subtitle">Sélectionnez votre programme.</p>
+            <div class="adl-grid-choices" role="radiogroup" aria-label="Votre parcours">
+              <label class="adl-card-radio"><input type="radio" name="formation" value="Élite" data-parcours="elite" data-label="Choix du parcours" required><span class="adl-card-content"><span class="adl-tag">Haut Niveau</span><span class="adl-card-title">Élite</span><span style="font-size:0.85rem; color:#94a3b8;">Cavaliers propriétaires / Haut niveau<br>Lycée et +</span></span></label>
+              <label class="adl-card-radio"><input type="radio" name="formation" value="Espoir" data-parcours="espoir" data-label="Choix du parcours" required><span class="adl-card-content"><span class="adl-tag">Détection</span><span class="adl-card-title">Espoir</span><span style="font-size:0.85rem; color:#94a3b8;">Jeunes talents<br>Collège (6ème - 3ème)</span></span></label>
+              <label class="adl-card-radio"><input type="radio" name="formation" value="Le Lab" data-parcours="lab" data-label="Choix du parcours" required><span class="adl-card-content"><span class="adl-tag">Post-bac</span><span class="adl-card-title">Le Lab</span><span style="font-size:0.85rem; color:#94a3b8;">Cavaliers propriétaires, 18 ans et +<br>Projet sportif sur-mesure autour de votre cheval</span></span></label>
+            </div>
+            <div class="adl-actions"><button type="button" class="adl-btn" id="btn-1" data-next>Commencer</button></div>
+            <p class="pre-step-error" role="alert" hidden></p>
+          </div>
+
+          <div class="adl-step" id="step-2">
+            <h3 tabindex="-1">Le Cavalier</h3>
+            <p class="adl-subtitle">Vos informations personnelles.</p>
+            <div class="adl-row">
+              <div class="adl-group"><input type="text" name="prenom" id="prenom" class="adl-input" placeholder=" " autocomplete="given-name" data-label="Prénom" required><label for="prenom" class="adl-label">Prénom</label></div>
+              <div class="adl-group"><input type="text" name="nom" id="nom" class="adl-input" placeholder=" " autocomplete="family-name" data-label="Nom" required><label for="nom" class="adl-label">Nom</label></div>
+            </div>
+            <div class="adl-row">
+              <div class="adl-group"><input type="date" name="date_naissance" id="dob" class="adl-input" min="1940-01-01" autocomplete="bday" data-label="Date de naissance" required><label for="dob" class="adl-label">Date de naissance</label></div>
+              <div class="adl-group"><select name="niveau_actuel" id="niveau_scolaire" class="adl-select" data-label="Niveau scolaire / situation" required><option value="" disabled selected></option></select><label for="niveau_scolaire" class="adl-label">Niveau scolaire / situation</label></div>
+            </div>
+            <div class="adl-group"><input type="text" name="adresse" id="addr" class="adl-input" placeholder=" " autocomplete="street-address" data-label="Adresse complète" required><label for="addr" class="adl-label">Adresse complète</label></div>
+            <div class="adl-row">
+              <div class="adl-group"><input type="email" name="email" id="email" class="adl-input" placeholder=" " autocomplete="email" data-label="Email" required><label for="email" class="adl-label">Email</label></div>
+              <div class="adl-group"><input type="tel" name="telephone" id="tel" class="adl-input" placeholder=" " autocomplete="tel" data-label="Téléphone" required><label for="tel" class="adl-label">Téléphone</label></div>
+            </div>
+            <fieldset id="bloc-responsable-legal" class="pre-block" aria-labelledby="titre-responsable">
+              <div id="titre-responsable" style="margin: 2rem 0 1rem; font-family:var(--font-title); font-size:1.3rem;">Responsable légal</div>
+              <div class="adl-row">
+                <div class="adl-group"><input type="text" name="responsable_nom" id="r_nom" class="adl-input" placeholder=" " data-label="Nom du responsable légal" required><label for="r_nom" class="adl-label">Nom complet</label></div>
+                <div class="adl-group"><input type="tel" name="responsable_tel" id="r_tel" class="adl-input" placeholder=" " data-label="Téléphone du responsable légal" required><label for="r_tel" class="adl-label">Téléphone</label></div>
+              </div>
+              <div class="adl-group"><input type="email" name="responsable_email" id="r_mail" class="adl-input" placeholder=" " data-label="Email du responsable légal" required><label for="r_mail" class="adl-label">Email responsable</label></div>
+            </fieldset>
+            <div class="adl-actions"><button type="button" class="adl-btn adl-btn-back" data-back>Retour</button><button type="button" class="adl-btn" id="btn-2" data-next>Suivant</button></div>
+            <p class="pre-step-error" role="alert" hidden></p>
+          </div>
+
+          <div class="adl-step" id="step-3">
+            <h3 tabindex="-1">Expérience</h3>
+            <p class="adl-subtitle">Votre niveau équestre et votre cheval.</p>
+            <fieldset id="bloc-elite" class="pre-block" hidden disabled>
+              <div class="adl-group"><select name="niveau_competition" id="elite-niveau" class="adl-select" data-label="Niveau compétition" required><option value="" disabled selected></option><option>Amateur</option><option>Pro</option><option>Poney Elite</option></select><label for="elite-niveau" class="adl-label">Niveau compétition</label></div>
+              <div class="adl-group"><textarea name="chevaux" id="elite-chevaux" class="adl-textarea" placeholder=" " data-label="Vos chevaux" required></textarea><label for="elite-chevaux" class="adl-label">Vos chevaux (nom, âge, niveau)</label></div>
+              <div class="adl-group"><textarea name="meilleurs_resultats" id="elite-resultats" class="adl-textarea" placeholder=" " data-label="Meilleurs résultats récents" required></textarea><label for="elite-resultats" class="adl-label">Meilleurs résultats récents</label></div>
+            </fieldset>
+            <fieldset id="bloc-espoir" class="pre-block" hidden disabled>
+              <div class="adl-row">
+                <div class="adl-group"><select name="niveau_galop" id="espoir-galop" class="adl-select" data-label="Niveau Galop" required><option value="" disabled selected></option><option>Galop 4</option><option>Galop 5</option><option>Galop 6</option><option>Galop 7+</option></select><label for="espoir-galop" class="adl-label">Niveau Galop</label></div>
+                <div class="adl-group"><select name="cheval_propre" id="trigger-cheval" class="adl-select" data-label="Avez-vous un cheval ?" required><option value="" disabled selected></option><option>Non</option><option>Oui, propriétaire</option><option>Demi-pension</option></select><label for="trigger-cheval" class="adl-label">Avez-vous un cheval ?</label></div>
+              </div>
+              <fieldset id="cheval-detail" class="pre-block" hidden disabled>
+                <div class="adl-group"><textarea name="chevaux" id="espoir-chevaux" class="adl-textarea" placeholder=" " data-label="Informations sur le cheval"></textarea><label for="espoir-chevaux" class="adl-label">Informations sur le cheval</label></div>
+              </fieldset>
+              <div class="adl-group"><textarea name="experience_equestre" id="espoir-experience" class="adl-textarea" placeholder=" " data-label="Votre expérience globale"></textarea><label for="espoir-experience" class="adl-label">Votre expérience globale</label></div>
+            </fieldset>
+            <fieldset id="bloc-lab" class="pre-block" hidden disabled>
+              <div class="adl-group"><select name="niveau_competition" id="lab-niveau" class="adl-select" data-label="Niveau de compétition actuel" required><option value="" disabled selected></option><option>Club</option><option>Amateur</option><option>Pro</option><option>Jeunes Chevaux</option></select><label for="lab-niveau" class="adl-label">Niveau de compétition actuel</label></div>
+              <div class="adl-group"><textarea name="chevaux" id="lab-chevaux" class="adl-textarea" placeholder=" " data-label="Votre cheval" required></textarea><label for="lab-chevaux" class="adl-label">Votre cheval (nom, âge, niveau, objectifs)</label></div>
+              <div class="adl-group"><textarea name="disponibilites" id="lab-disponibilites" class="adl-textarea" placeholder=" " data-label="Vos disponibilités" required></textarea><label for="lab-disponibilites" class="adl-label">Vos disponibilités (études, travail, saison sportive)</label></div>
+            </fieldset>
+            <div class="adl-group"><input type="text" name="club_actuel" id="club" class="adl-input" placeholder=" " data-label="Club / Structure actuelle" required><label for="club" class="adl-label">Club / Structure actuelle</label></div>
+            <div class="adl-actions"><button type="button" class="adl-btn adl-btn-back" data-back>Retour</button><button type="button" class="adl-btn" id="btn-3" data-next>Suivant</button></div>
+            <p class="pre-step-error" role="alert" hidden></p>
+          </div>
+
+          <div class="adl-step" id="step-4">
+            <h3 tabindex="-1">Finalisation</h3>
+            <p class="adl-subtitle">Vos motivations et vos vidéos.</p>
+            <div class="adl-group"><textarea name="objectifs" id="objectifs" class="adl-textarea" placeholder=" " style="min-height:100px" data-label="Vos objectifs sportifs" required></textarea><label for="objectifs" class="adl-label">Vos objectifs sportifs</label></div>
+            <div class="adl-group"><textarea name="motivations" id="motivations" class="adl-textarea" placeholder=" " style="min-height:100px" data-label="Pourquoi l’Académie Delaveau / Le Lab ?" required></textarea><label for="motivations" class="adl-label">Pourquoi l'Académie Delaveau / Le Lab ?</label></div>
+            <div class="pre-link-group">
+              <div class="adl-group"><input type="url" name="lien_video" id="pre-video-link" class="adl-input" placeholder=" " inputmode="url" autocomplete="off" aria-describedby="pre-link-help" data-label="Lien de vos vidéos" required><label for="pre-video-link" class="adl-label">Lien de vos vidéos (WeTransfer, Google Drive, YouTube…)</label></div>
+              <p class="pre-link-help" id="pre-link-help">Déposez vos vidéos de parcours ou de séances sur <a href="https://wetransfer.com/" target="_blank" rel="noopener noreferrer">WeTransfer</a> (option « Obtenir un lien »), puis collez le lien ici.</p>
+            </div>
+            <div class="adl-check"><input type="checkbox" name="rgpd" id="rgpd" value="1" data-label="Accord pour le traitement de vos données (case à cocher)" required><label for="rgpd">J'accepte que mes données soient traitées pour ma candidature.</label></div>
+            <div class="adl-check"><input type="checkbox" name="newsletter" id="nl" value="Oui"><label for="nl">Je souhaite recevoir les actualités.</label></div>
+            <div class="adl-actions"><button type="button" class="adl-btn adl-btn-back" data-back>Retour</button><button type="submit" class="adl-btn" id="btn-submit">Envoyer ma candidature</button></div>
+            <p class="pre-step-error" role="alert" hidden></p>
+            <p class="pre-send-error" role="alert" hidden></p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <!-- Formulaire Contact Form 7 « Pré-inscription 2027-2028 » (géré depuis forms/pre-inscription-2027-2028.json) :
+         invisible, il fournit l’identifiant et les champs techniques de CF7 ; l’envoi se fait par le script plus bas. -->
+    <div class="pre-transport" hidden>[contact-form-7 title="Pré-inscription 2027-2028"]</div>
   </div>
 </div></section>
 <footer class="ak-footer"><div class="ak-wrap">
@@ -425,48 +585,300 @@
 })();
 
 
-/* Vidéos de candidature : par lien uniquement (WeTransfer, Google Drive, YouTube…), plus d'envoi de fichier.
-   Le lien est ajouté à la fin de la réponse « motivations », champ que l'extension enregistre et transmet. */
+/* Formulaire de pré-inscription (remplace l'extension « preinscription_academie »).
+   - Quatre étapes. Les boutons restent toujours actifs : s'il manque une information, la liste des
+     champs à compléter s'affiche au-dessus des boutons et le premier champ concerné est mis en évidence.
+   - L'envoi passe par l'API de Contact Form 7, formulaire « Pré-inscription 2027-2028 » (rendu invisible
+     dans .pre-transport, défini dans forms/pre-inscription-2027-2028.json) : chaque demande est enregistrée
+     dans Flamingo (admin WordPress → Flamingo → Messages entrants) et envoyée par email. */
 (() => {
   "use strict";
-  const MARK = "\n\nLien vidéo : ";
+  const NIVEAUX = {
+    elite: ["6ème", "5ème", "4ème", "3ème", "Seconde", "Première", "Terminale", "Après le bac"],
+    espoir: ["6ème", "5ème", "4ème", "3ème", "Seconde", "Première", "Terminale"],
+    lab: ["Bac obtenu", "Bac +1", "Bac +2", "Études supérieures", "En activité professionnelle", "Autre situation"],
+  };
+  const AVEC_CHEVAL = ["Oui, propriétaire", "Demi-pension"];
+  const BOUTON = "Envoyer ma candidature";
+  const CONTACT = ' Si le problème persiste, appelez-nous au <a href="tel:+33616017066">06 16 01 70 66</a> ou écrivez à <a href="mailto:contact@academiedelaveau.com">contact@academiedelaveau.com</a>.';
+  const CHAMPS_CF7 = ["_wpcf7", "_wpcf7_version", "_wpcf7_locale", "_wpcf7_unit_tag", "_wpcf7_container_post"];
+
   function init() {
     const form = document.getElementById("adl-form-v3");
-    const file = form?.querySelector('input[name="palmares"]');
-    const box = form?.querySelector(".adl-file-container");
-    const motivations = form?.querySelector('textarea[name="motivations"]');
-    if (!form || !box || !motivations || document.getElementById("pre-video-link")) return;
-    if (file) { file.value = ""; file.disabled = true; }
-    const group = document.createElement("div");
-    group.className = "pre-link-group";
-    group.innerHTML =
-      '<div class="adl-group"><input type="url" id="pre-video-link" class="adl-input req-4" placeholder=" " inputmode="url" autocomplete="off" required>' +
-      '<label for="pre-video-link" class="adl-label">Lien de vos vidéos (WeTransfer, Google Drive, YouTube…)</label></div>' +
-      '<p class="pre-link-help" id="pre-link-help">Déposez vos vidéos de parcours ou de séances sur <a href="https://wetransfer.com/" target="_blank" rel="noopener noreferrer">WeTransfer</a> (option « Obtenir un lien »), puis collez le lien ici.</p>' +
-      '<p class="pre-link-error" id="pre-link-error" role="alert" hidden></p>';
-    box.after(group);
-    const input = group.querySelector("#pre-video-link");
-    const error = group.querySelector("#pre-link-error");
-    input.setAttribute("aria-describedby", "pre-link-help pre-link-error");
-    const valid = (v) => /^https?:\/\/\S+\.\S+/i.test(v.trim());
-    input.addEventListener("input", () => { error.hidden = true; input.setAttribute("aria-invalid", "false"); });
-    form.addEventListener("submit", (event) => {
-      const url = input.value.trim();
-      if (!valid(url)) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        error.textContent = "Collez un lien valide vers vos vidéos (il commence par https://).";
-        error.hidden = false;
-        input.setAttribute("aria-invalid", "true");
-        input.focus();
+    if (!form || form.dataset.preReady) return;
+    form.dataset.preReady = "true";
+    const root = document.getElementById("adl-preinscription");
+    const box = form.closest(".adl-form-container");
+    const counter = document.getElementById("step-num");
+    const steps = Array.from(form.querySelectorAll(".adl-step"));
+    const level = form.querySelector("#niveau_scolaire");
+    const horse = form.querySelector("#trigger-cheval");
+    const link = form.querySelector("#pre-video-link");
+    const submit = form.querySelector("#btn-submit");
+    const sendError = form.querySelector(".pre-send-error");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const shown = new Set();        // étapes dont la liste « à compléter » est affichée
+    const serverErrors = new Map(); // champ → message renvoyé par Contact Form 7
+    let current = 1;
+    let sending = false;
+
+    const dob = form.querySelector("#dob");
+    dob.max = new Date().toISOString().slice(0, 10);
+    const markDate = () => dob.closest(".adl-group").classList.toggle("is-empty", !dob.value && !dob.validity.badInput);
+    ["input", "change", "blur"].forEach((type) => dob.addEventListener(type, markDate));
+    markDate();
+
+    const isOn = (el) => !el.matches(":disabled");
+    const stepOf = (el) => steps.indexOf(el.closest(".adl-step")) + 1;
+    const labelOf = (el) => el.dataset.label || el.name;
+    const setBlock = (block, on) => { block.hidden = !on; block.disabled = !on; };
+
+    /* Le parcours choisi décide des niveaux proposés et des blocs affichés (les blocs masqués ne sont pas envoyés). */
+    function applyParcours() {
+      const choice = form.querySelector('input[name="formation"]:checked');
+      const key = choice ? choice.dataset.parcours : "";
+      const list = NIVEAUX[key] || [];
+      const previous = level.value;
+      while (level.options.length > 1) level.remove(1);
+      list.forEach((text) => level.add(new Option(text, text)));
+      if (list.includes(previous)) level.value = previous; else level.selectedIndex = 0;
+      setBlock(form.querySelector("#bloc-responsable-legal"), key !== "lab");
+      ["elite", "espoir", "lab"].forEach((k) => setBlock(form.querySelector("#bloc-" + k), k === key));
+      applyHorse();
+    }
+    function applyHorse() { setBlock(form.querySelector("#cheval-detail"), AVEC_CHEVAL.includes(horse.value)); }
+
+    /* Lien vidéo : garde l'adresse seule et ajoute https:// si elle a été collée sans. */
+    function fixLink() {
+      let value = link.value.trim();
+      const found = value.match(/https?:\/\/\S+/i);
+      if (found) value = found[0];
+      else if (/^[^\s/@]+\.[^\s/]{2,}/.test(value)) value = "https://" + value;
+      if (value !== link.value) link.value = value;
+    }
+
+    function issue(el) {
+      if (serverErrors.has(el.name)) return serverErrors.get(el.name);
+      if (!el.required) return null;
+      const label = labelOf(el);
+      if (el.type === "radio") return form.querySelector('input[name="' + el.name + '"]:checked') ? null : label;
+      if (el.type === "checkbox") return el.checked ? null : label;
+      const value = el.value.trim();
+      if (!value) return el.validity.badInput ? label + " (date incomplète)" : label;
+      if (el.type === "email" && (!el.validity.valid || !/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value))) return label + " (adresse invalide)";
+      if (el.type === "tel" && value.replace(/\D/g, "").length < 6) return label + " (numéro incomplet)";
+      if (el.type === "url" && !/^https?:\/\/[^\s/]+\.[^\s]{2,}/i.test(value)) return label + " (lien invalide)";
+      if (el.type === "date" && !el.validity.valid) return label + " (date invalide)";
+      return null;
+    }
+
+    function problems(n) {
+      const seen = new Set();
+      const list = [];
+      steps[n - 1].querySelectorAll("input[name], select[name], textarea[name]").forEach((el) => {
+        if (!isOn(el) || seen.has(el.name)) return;
+        seen.add(el.name);
+        const text = issue(el);
+        if (text) list.push({ el, text });
+      });
+      return list;
+    }
+
+    /* Affiche (ou retire) la liste de ce qui manque dans l'étape n. Renvoie true si l'étape est complète. */
+    function render(n, focus) {
+      const step = steps[n - 1];
+      const message = step.querySelector(".pre-step-error");
+      const list = problems(n);
+      step.querySelectorAll(".is-invalid").forEach((el) => el.classList.remove("is-invalid"));
+      step.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+      if (!list.length) {
+        message.hidden = true;
+        message.textContent = "";
+        shown.delete(n);
+        return true;
+      }
+      list.forEach(({ el }) => {
+        (el.closest(".adl-grid-choices, .adl-check, .adl-group") || el).classList.add("is-invalid");
+        el.setAttribute("aria-invalid", "true");
+      });
+      shown.add(n);
+      const text = (n === steps.length ? "À compléter avant l’envoi : " : "À compléter pour continuer : ") + list.map((p) => p.text).join(", ") + ".";
+      if (message.textContent !== text) message.textContent = text;
+      message.hidden = false;
+      if (focus) {
+        const first = list[0].el;
+        first.focus({ preventScroll: true });
+        reveal(first.closest(".adl-grid-choices, .adl-check, .adl-group") || first);
+      }
+      return false;
+    }
+
+    function offset() {
+      const bar = document.getElementById("wpadminbar");
+      const menu = root ? parseFloat(getComputedStyle(root).getPropertyValue("--ak-menu")) : 0;
+      return (menu || 100) + (bar ? bar.getBoundingClientRect().height : 0) + 16;
+    }
+    function scrollToY(y) {
+      const smooth = !reduced.matches && !(root && root.classList.contains("ak-motion-off"));
+      window.scrollTo({ top: Math.max(0, y), behavior: smooth ? "smooth" : "auto" });
+    }
+    function reveal(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < offset() || rect.bottom > innerHeight) scrollToY(scrollY + rect.top - offset());
+    }
+    function showTop() {
+      const top = box.getBoundingClientRect().top;
+      if (top < offset() || top > innerHeight * 0.5) scrollToY(scrollY + top - offset());
+    }
+
+    function goTo(n) {
+      if (n < 1 || n > steps.length) return;
+      current = n;
+      steps.forEach((step, i) => step.classList.toggle("active", i === n - 1));
+      counter.textContent = String(n);
+      if (shown.has(n)) render(n, false);
+      showTop();
+      steps[n - 1].querySelector("h3").focus({ preventScroll: true });
+    }
+    function next() {
+      if (render(current, true)) goTo(current + 1);
+    }
+
+    /* Envoi au formulaire Contact Form 7 caché (identifiant et champs techniques), avec un jeton reCAPTCHA récent. */
+    function captcha() {
+      const config = window.wpcf7_recaptcha || {};
+      const g = window.grecaptcha;
+      const action = (config.actions && config.actions.contactform) || "contactform";
+      if (!config.sitekey || !g || typeof g.ready !== "function") return Promise.resolve("");
+      return new Promise((resolve) => {
+        const timer = setTimeout(() => resolve(""), 10000);
+        const done = (token) => { clearTimeout(timer); resolve(typeof token === "string" ? token : ""); };
+        try { g.ready(() => g.execute(config.sitekey, { action }).then(done, () => done(""))); } catch (_) { done(""); }
+      });
+    }
+    function endpoint(id) {
+      const api = (window.wpcf7 && window.wpcf7.api) || {};
+      const base = api.root || "/wp-json/";
+      const path = (api.namespace || "contact-form-7/v1").replace(/^\/|\/$/g, "") + "/contact-forms/" + encodeURIComponent(id) + "/feedback";
+      return base.indexOf("?") === -1 ? base.replace(/\/?$/, "/") + path : base + path;
+    }
+    async function post(url, data) {
+      const controller = typeof AbortController === "function" ? new AbortController() : null;
+      const timer = controller ? setTimeout(() => controller.abort(), 45000) : 0;
+      try {
+        const response = await fetch(url, { method: "POST", body: data, headers: { Accept: "application/json" }, credentials: "same-origin", signal: controller ? controller.signal : undefined });
+        const answer = await response.json().catch(() => null);
+        if (!answer || typeof answer.status !== "string") {
+          const error = new Error("réponse inattendue (HTTP " + response.status + (answer && answer.code ? ", " + answer.code : "") + ")");
+          error.server = true;
+          throw error;
+        }
+        return answer;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function fail(text) {
+      sendError.textContent = text;
+      sendError.insertAdjacentHTML("beforeend", CONTACT);
+      sendError.hidden = false;
+      if (current !== steps.length) goTo(steps.length);
+      reveal(sendError);
+    }
+    function success() {
+      const done = document.createElement("div");
+      done.className = "pre-success";
+      done.tabIndex = -1;
+      done.setAttribute("role", "status");
+      done.innerHTML = '<span class="pre-success-mark" aria-hidden="true">✦</span><h3>Félicitations.</h3><p>Votre candidature a bien été reçue.<br>Nous reviendrons vers vous très prochainement.</p><a href="https://www.academiedelaveau.com/">Retour à l’accueil</a>';
+      box.replaceChildren(done);
+      showTop();
+      done.focus({ preventScroll: true });
+    }
+    function handle(answer) {
+      const status = answer.status;
+      // mail_failed : la demande est enregistrée dans Flamingo, seul l'email de notification a échoué.
+      if (status === "mail_sent" || status === "mail_failed") return success();
+      if (status === "validation_failed" && Array.isArray(answer.invalid_fields)) {
+        let first = 0;
+        answer.invalid_fields.forEach((item) => {
+          const el = Array.from(form.elements).find((e) => e.name === item.field && isOn(e));
+          if (!el) return;
+          serverErrors.set(el.name, labelOf(el) + " : " + String(item.message || "à vérifier"));
+          if (!first || stepOf(el) < first) first = stepOf(el);
+        });
+        if (first) { goTo(first); render(first, true); return; }
+        console.error("Pré-inscription : champs refusés par Contact Form 7", answer.invalid_fields);
+      }
+      if (status === "acceptance_missing") { form.querySelector("#rgpd").checked = false; goTo(steps.length); render(steps.length, true); return; }
+      if (status === "spam") return fail("Votre candidature a été bloquée par notre filtre anti-spam. Patientez quelques instants, puis réessayez.");
+      fail((answer.message ? String(answer.message) + " " : "L’envoi n’a pas abouti. ") + "Réessayez dans quelques instants.");
+    }
+    async function send() {
+      if (sending) return;
+      fixLink();
+      for (let n = 1; n <= steps.length; n++) {
+        if (!render(n, false)) { goTo(n); render(n, true); return; }
+      }
+      const transport = document.querySelector(".pre-transport form");
+      const technical = (name) => { const input = transport && transport.querySelector('input[name="' + name + '"]'); return input ? input.value : ""; };
+      if (!technical("_wpcf7")) {
+        console.error("Pré-inscription : le formulaire Contact Form 7 « Pré-inscription 2027-2028 » est absent de la page.");
+        fail("Le formulaire est momentanément indisponible.");
         return;
       }
-      const base = motivations.value.split(MARK)[0];
-      motivations.value = base + MARK + url;
-    }, true);
+      sending = true;
+      submit.disabled = true;
+      submit.textContent = "Envoi en cours…";
+      sendError.hidden = true;
+      try {
+        const data = new FormData(form);
+        CHAMPS_CF7.forEach((name) => data.set(name, technical(name)));
+        data.set("_wpcf7_posted_data_hash", "");
+        data.set("_wpcf7_recaptcha_response", await captcha());
+        handle(await post(endpoint(technical("_wpcf7")), data));
+      } catch (error) {
+        console.error("Pré-inscription : échec de l’envoi", error);
+        fail(error && error.server ? "Le site n’a pas pu enregistrer votre candidature. Réessayez dans quelques instants." : "L’envoi n’a pas abouti. Vérifiez votre connexion internet, puis réessayez.");
+      } finally {
+        sending = false;
+        submit.disabled = false;
+        submit.textContent = BOUTON;
+      }
+    }
+
+    form.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-next], button[data-back]");
+      if (!button) return;
+      event.preventDefault();
+      if (button.hasAttribute("data-next")) next(); else goTo(current - 1);
+    });
+    // Touche Entrée : passe à l'étape suivante, ou envoie depuis la dernière.
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (current < steps.length) next(); else send();
+    });
+    form.addEventListener("change", (event) => {
+      if (event.target.name === "formation") applyParcours();
+      if (event.target === horse) applyHorse();
+      if (event.target === link) fixLink();
+    });
+    const refresh = (event) => {
+      const el = event.target;
+      if (el.name) serverErrors.delete(el.name);
+      const n = stepOf(el);
+      if (shown.has(n)) render(n, false);
+    };
+    form.addEventListener("input", refresh);
+    form.addEventListener("change", refresh);
+    link.addEventListener("blur", fixLink);
+
+    applyParcours(); // parcours déjà coché (retour arrière du navigateur, clic avant la fin du chargement)
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
-  else init();
+  // Le formulaire est placé avant ce script : on l'active tout de suite, sans attendre la fin du chargement.
+  if (document.getElementById("adl-form-v3")) init();
+  else document.addEventListener("DOMContentLoaded", init, { once: true });
 })();
 </script>
 <!-- /wp:html -->
